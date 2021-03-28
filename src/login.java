@@ -56,6 +56,7 @@ public class login {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.control);
 		frame.setBounds(100, 100, 280, 484);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,6 +154,21 @@ public class login {
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		JButton btnNewButton_1 = new JButton("\u0391\u03C3\u03B8\u03B5\u03BD\u03AE\u03C2");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							SignUpPatient window = new SignUpPatient();
+							window.frame.setVisible(true);
+							frame.dispose();;
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton_1.setBackground(SystemColor.textInactiveText);
 		btnNewButton_1.setForeground(SystemColor.text);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
