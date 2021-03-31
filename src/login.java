@@ -125,6 +125,21 @@ public class login {
 
 		
 		JButton btnNewButton = new JButton("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							doctor_menu window = new doctor_menu();
+							window.frame.setVisible(true);
+							frame.dispose();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(SystemColor.textInactiveText);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
