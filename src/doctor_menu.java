@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class doctor_menu {
 
@@ -101,6 +103,21 @@ public class doctor_menu {
 		
 		
 		JButton btnNewButton_5 = new JButton("    \u0391\u03C1\u03C7\u03B5\u03AF\u03BF \u0391\u03C3\u03B8\u03B5\u03BD\u03CE\u03BD        ");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							patient_file window = new patient_file();
+							window.frame.setVisible(true);
+							frame.dispose();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton_5.setHorizontalAlignment(SwingConstants.TRAILING);
 		btnNewButton_5.setBackground(new Color(211, 211, 211));
 		btnNewButton_5.setBorder(new EmptyBorder(0, 0, 0, 0));
