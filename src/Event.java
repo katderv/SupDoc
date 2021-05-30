@@ -19,7 +19,7 @@ public class Event {
 		System.out.println("Day & Time: "+ this.daytime+" | Title: "+ this.title);
 	}
 	
-	public void addReminder() { // Adds a notification for the Event
+	public void addReminder() {// Adds a notification for the Event
 		
 	}
 	/*Getters */
