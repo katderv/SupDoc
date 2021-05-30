@@ -1,44 +1,38 @@
-import java.time.LocalDate; // import the LocalDate class
-import java.time.LocalTime; // import the LocalTime class
+import java.time.LocalDateTime; // import the LocalDateTime class
+import java.time.format.DateTimeFormatter;
 public class Event {
-	private LocalDate day;
-	private LocalTime time;
+	private LocalDateTime daytime;
 	private String title;
 	
-	public Event(String day, String time, String title) { // Constructor with all String arguments
-		this.day=LocalDate.parse(day);
-		this.time=LocalTime.parse(time);
+	public Event(String daytime, String title) { // Constructor with all String arguments
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		this.daytime=LocalDateTime.parse(daytime, formatter);
 		this.title=title;
 	}
 	public Event() { // Constructor with no arguments get current date & time and title is null
-		this.day=LocalDate.now();
-		this.time=LocalTime.now();
+		this.daytime=LocalDateTime.now();
 		this.title=null;
 	}
 	public void printEvent() { //prints details of Event
-		System.out.println("day: "+ this.day+" time:"+ this.time+ " title: "+ this.title);
+		//DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
+	    //String formatDateTime = this.daytime.format(format);  
+		System.out.println("Day & Time: "+ this.daytime+" | Title: "+ this.title);
 	}
 	
 	public void addReminder() { // Adds a notification for the Event
 		
 	}
 	/*Getters */
-	public LocalDate getDay() {
-		return this.day;
-	}
-	public LocalTime getTime() {
-		return this.time;
+	public LocalDateTime getDayTime() {
+		return this.daytime;
 	}
 	public String getTitle() {
 		return this.title;
 	}
 	/*Setters */
-	public void setDay(String day) {
-		this.day=LocalDate.parse(day);
-	}	
-	public void setTime(String time) {
-		this.time=LocalTime.parse(time);
-	}	
+	public void setDay(String daytime) {
+		this.daytime=LocalDateTime.parse(daytime);
+	}		
 	public void setTitle(String title) {
 		this.title=title;
 	}
