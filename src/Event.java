@@ -31,7 +31,8 @@ public class Event {
 	}
 	/*Setters */
 	public void setDay(String daytime) {
-		this.daytime=LocalDateTime.parse(daytime);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		this.daytime=LocalDateTime.parse(daytime, formatter);
 	}		
 	public void setTitle(String title) {
 		this.title=title;
