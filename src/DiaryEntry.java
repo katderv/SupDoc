@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class DiaryEntry extends PatientsDiary {
 
@@ -9,7 +10,9 @@ public class DiaryEntry extends PatientsDiary {
 	String notes;
 	boolean important = false;
 	
-	public DiaryEntry (String title, LocalDate date, LocalTime time, String notes, boolean imp) {
+	
+	public DiaryEntry (ArrayList<DiaryEntry> entry, String title, LocalDate date, LocalTime time, String notes, boolean imp) {
+		super(entry);
 		this.title = title;
 		this.date = date;
 		this.timeOfEntry = time;
