@@ -128,7 +128,8 @@ public class login {
 		JButton btnNewButton = new JButton("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// -> We need a condition here when the database is ready <-
+				DBConnection.connect();// Connecting with the DB
+				// -> We need a condition here when the database is ready <-				
 				// If User is Doctor
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
