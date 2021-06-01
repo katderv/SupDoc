@@ -45,22 +45,6 @@ public class SignUpDoctor {
 	private JScrollPane scrollPane_1;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUpDoctor window = new SignUpDoctor();
-					window.frame_SignUpDoctor.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public SignUpDoctor() {

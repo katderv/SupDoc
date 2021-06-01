@@ -193,7 +193,7 @@ public class login {
 						try {
 							SignUpPatient window = new SignUpPatient();
 							window.frame.setVisible(true);
-							frame.dispose();;
+							frame.dispose();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -208,6 +208,21 @@ public class login {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("\u0399\u03B1\u03C4\u03C1\u03CC\u03C2");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							SignUpDoctor window = new SignUpDoctor();
+							window.frame_SignUpDoctor.setVisible(true);
+							frame.dispose();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnNewButton_2.setBackground(SystemColor.textInactiveText);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.setForeground(SystemColor.text);
