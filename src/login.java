@@ -128,6 +128,8 @@ public class login {
 		JButton btnNewButton = new JButton("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// -> We need a condition here when the database is ready <-
+				// If User is Doctor
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
@@ -139,6 +141,21 @@ public class login {
 						}
 					}
 				});
+				/*
+				// If User is Patient
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							patient_menu window = new patient_menu();
+							window.frame_patient_menu.setVisible(true);
+							frame.dispose();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				//
+				 */
 			}
 		});
 		btnNewButton.setForeground(SystemColor.text);
