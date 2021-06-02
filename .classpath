@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="imgs"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="sqlite-jdbc-3.34.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kderv/Downloads/sqlite-jdbc-3.34.0-javadoc.jar"/>
+	<classpathentry kind="lib" path=".classpath"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
