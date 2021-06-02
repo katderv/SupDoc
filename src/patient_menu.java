@@ -17,21 +17,7 @@ public class patient_menu {
 
 	public JFrame frame_patient_menu;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					patient_menu window = new patient_menu();
-					window.frame_patient_menu.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
@@ -90,7 +76,7 @@ public class patient_menu {
 		lblNewLabel_1.setBounds(0, 0, 274, 38);
 		frame_patient_menu.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("\u039A\u03B1\u03BB\u03C9\u03C3\u03CC\u03C1\u03B9\u03C3\u03B5\u03C2 <name>!");
+		JLabel lblNewLabel_2 = new JLabel("\u039A\u03B1\u03BB\u03C9\u03C3\u03CC\u03C1\u03B9\u03C3\u03B5\u03C2 "+login.name+"!");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(10, 68, 254, 29);
@@ -117,21 +103,7 @@ public class patient_menu {
 		
 		JButton btnNewButton_5 = new JButton("      \u03A4\u03BF \u03B9\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC \u03BC\u03BF\u03C5      ");
 		btnNewButton_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							patient_file window = new patient_file();
-							window.frame.setVisible(true);
-							frame_patient_menu.dispose();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
+		
 		btnNewButton_5.setBackground(new Color(211, 211, 211));
 		btnNewButton_5.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton_5.setBounds(30, 310, 215, 35);

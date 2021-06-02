@@ -77,7 +77,7 @@ public class doctor_menu {
 		lblNewLabel_1.setBounds(0, 0, 274, 38);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("\u039A\u03B1\u03BB\u03C9\u03C3\u03CC\u03C1\u03B9\u03C3\u03B5\u03C2 <name>!");
+		JLabel lblNewLabel_2 = new JLabel("\u039A\u03B1\u03BB\u03C9\u03C3\u03CC\u03C1\u03B9\u03C3\u03B5\u03C2 "+login.name+"!");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(10, 68, 254, 29);
