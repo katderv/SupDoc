@@ -31,6 +31,7 @@ public class login {
 	private JPasswordField passwordField;
 	public static Connection myConn;
 	public static String name;
+	public static String email;
 
 	/**
 	 * Launch the application.
@@ -135,7 +136,7 @@ public class login {
 				//DBConnection.connect();// Connecting with the DB
 				// -> We need a condition here when the database is ready <-				
 				// If User is Doctor
-				String email = txtEmail.getText();
+				email = txtEmail.getText();
 				String passw = passwordField.getText();
 				
 						try {							
