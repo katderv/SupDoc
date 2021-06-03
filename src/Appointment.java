@@ -22,26 +22,26 @@ import java.awt.event.ActionEvent;
 
 public class Appointment {
 
-	LocalDate day = LocalDate.now();
-	LocalTime hour = LocalTime.now();
-	String reason = "";
+	private LocalDate day = LocalDate.now();
+	private LocalTime hour = LocalTime.now();
+	private String reason = "";
 	//Doctor doc;
 	//Patient patient;
 	int duration = 0;
 	
-	LocalDate getDay () {
+	public LocalDate getDay () {
 		return day;
 	}
 	
-	LocalTime getHour () {
+	public LocalTime getHour () {
 		return hour;
 	}
 	
-	String getReason () {
+	public String getReason () {
 		return reason;
 	}
 	
-	void setReason () {
+	public void setReason () {
 		reason = "Check Up";
 	}
 	
