@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 public class patient_menu {
 
 	public JFrame frame_patient_menu;
-	
+	public static PatientsDiary diar;
 
 
 	/**
@@ -123,6 +125,30 @@ public class patient_menu {
 		frame_patient_menu.getContentPane().add(btnNewButton_6);
 		Image img8 = new ImageIcon(this.getClass().getResource("/notebook.png")).getImage();
 		btnNewButton_6.setIcon(new ImageIcon(img8));
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							java.sql.Statement Stmt = login.myConn.createStatement();
+							ResultSet myRs1 = Stmt.executeQuery("select * from PatientsDiaryEntry where '" + login.email + "'= patient" );
+							ArrayList<DiaryEntry> entr = new ArrayList<DiaryEntry>();
+							while (myRs1.next()) {
+								DiaryEntry entry = new DiaryEntry(myRs1.getString("title"),myRs1.getString("dat"), myRs1.getString("timeOfEntry"),myRs1.getString("notes"), false );
+								entr.add(entry);
+							
+						       }
+							
+							diar = new PatientsDiary(entr);
+							DiaryMain window = new DiaryMain();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		
 		JButton btnNewButton_7 = new JButton("      \u039F\u03B9 \u03B9\u03B1\u03C4\u03C1\u03BF\u03AF \u03BC\u03BF\u03C5          ");
 		btnNewButton_7.setHorizontalAlignment(SwingConstants.RIGHT);
