@@ -4,6 +4,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.beans.Statement;
 import java.awt.event.WindowFocusListener;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -21,12 +22,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 import java.util.*;
+import java.sql.*;
 
 public class login {
 
 	private JFrame frame;
 	private JTextField txtEmail;
 	private JPasswordField passwordField;
+	public static Connection myConn;
+	public static String name;
+	public static String email;
 
 	/**
 	 * Launch the application.
@@ -128,35 +133,61 @@ public class login {
 		JButton btnNewButton = new JButton("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DBConnection.connect();// Connecting with the DB
+				//DBConnection.connect();// Connecting with the DB
 				// -> We need a condition here when the database is ready <-				
 				// If User is Doctor
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							doctor_menu window = new doctor_menu();
-							window.frame.setVisible(true);
-							frame.dispose();
-						} catch (Exception e) {
-							e.printStackTrace();
+				email = txtEmail.getText();
+				String passw = passwordField.getText();
+				
+						try {							
+							
+							myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+							java.sql.Statement Stmt = myConn.createStatement();
+							
+							ResultSet myRs1 = Stmt.executeQuery("select nam from Patient where '" + email + "'= email and '"+ passw + "' = passw" );
+							
+							while (myRs1.next()) {
+								name = myRs1.getString("nam");
+								 EventQueue.invokeLater(new Runnable() {
+										public void run() {
+											try {
+												
+												patient_menu window = new patient_menu();
+												window.frame_patient_menu.setVisible(true);
+												frame.dispose();
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+										}
+									});
+						       }
+							java.sql.Statement Stmt2 = myConn.createStatement();
+							ResultSet myRs2 = Stmt2.executeQuery("select nam from Doctor where '" + email + "'= email and '"+ passw + "' = passw" );
+							
+							while (myRs2.next()) {
+								name = myRs2.getString("nam");
+								 EventQueue.invokeLater(new Runnable() {
+										public void run() {
+											try {
+												
+												doctor_menu window = new doctor_menu();
+												window.frame.setVisible(true);
+												frame.dispose();
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+										}
+									});
+						       }
+							
+							
+							
+						} catch (Exception er) {
+							er.printStackTrace();
 						}
-					}
-				});
-				/*
-				// If User is Patient
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							patient_menu window = new patient_menu();
-							window.frame_patient_menu.setVisible(true);
-							frame.dispose();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				//
-				 */
+					
+				
+		
 			}
 		});
 		btnNewButton.setForeground(SystemColor.text);

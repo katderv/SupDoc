@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 public class Notification {
 	
-	String title = "a";
-	LocalDate day = LocalDate.now();
-	LocalTime hour = LocalTime.now();
-	String info = "yes";
+	private String title = "a";
+	private LocalDate day = LocalDate.now();
+	private LocalTime hour = LocalTime.now();
+	private String info = "yes";
 	
 	public Notification () {	
 	}
@@ -39,16 +39,16 @@ public class Notification {
 		this.info = inf;
 	}
 	
-	String getTitle () {
+	public String getTitle () {
 		return title;
 	}
 	
-	static void addNotifications(ArrayList<Notification> a, Notification obj) {
+	public static void addNotifications(ArrayList<Notification> a, Notification obj) {
 		a.add(obj);
 	  	//System.out.println("Its me! Your favorite notification!\n");
 	}
 	
-	static void getNotifications(ArrayList<Notification> a) {
+	public static void getNotifications(ArrayList<Notification> a) {
 		//System.out.println(a);
 		for(Notification x:a)
 			System.out.println(x.getTitle());
