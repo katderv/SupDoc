@@ -6,6 +6,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -150,7 +152,7 @@ public class patient_menu {
 							ResultSet myRs1 = Stmt.executeQuery("select * from PatientsDiaryEntry where '" + login.email + "'= patient" );
 							ArrayList<DiaryEntry> entr = new ArrayList<DiaryEntry>();
 							while (myRs1.next()) {
-								DiaryEntry entry = new DiaryEntry(myRs1.getString("title"),myRs1.getString("dat"), myRs1.getString("timeOfEntry"),myRs1.getString("notes"), false );
+								DiaryEntry entry = new DiaryEntry(myRs1.getString("title"),LocalDate.parse(myRs1.getString("dat")), LocalTime.parse(myRs1.getString("timeOfEntry")),myRs1.getString("notes"), false );
 								entr.add(entry);
 							
 						       }

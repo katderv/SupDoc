@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class DiaryEntry {
 
 	private String title;
-	private String date;
-	private String timeOfEntry;
+	private LocalDate date;
+	private LocalTime timeOfEntry;
 	private String notes;
 	boolean important = false;
 	
 	public DiaryEntry() {
 	}
 	
-	public DiaryEntry (String title, String date, String time, String notes, boolean imp) {
+	public DiaryEntry (String title, LocalDate date, LocalTime time, String notes, boolean imp) {
 		this.title = title;
 		this.date = date;
 		this.timeOfEntry = time;
