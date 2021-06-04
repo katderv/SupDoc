@@ -71,6 +71,22 @@ public class patient_menu {
 		frame_patient_menu.getContentPane().add(btnNewButton_2);
 		Image img4 = new ImageIcon(this.getClass().getResource("/notification.png")).getImage();
 		btnNewButton_2.setIcon(new ImageIcon(img4));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Notification window1 = new Notification();
+							window1.frame.setVisible(true);
+						
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setOpaque(true);

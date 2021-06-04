@@ -102,7 +102,6 @@ public class login {
             }
         });
 		
-		 
 		
 		
 		passwordField = new JPasswordField();
@@ -262,4 +261,5 @@ public class login {
 		btnNewButton_2.setBounds(138, 405, 106, 29);
 		frame.getContentPane().add(btnNewButton_2);
 	}
+	
 }
