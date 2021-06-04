@@ -1,47 +1,28 @@
-import org.eclipse.swt.SWT;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.FocusListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.beans.Statement;
-import java.awt.event.WindowFocusListener;
-import java.awt.Window;
+import java.awt.SystemColor;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
-import java.util.*;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ScrollPaneConstants;
-
-
-public class Notification {
+public class Notification extends JFrame {
 	
 	private String title = "a";
 	private LocalDate day = LocalDate.now();
@@ -51,6 +32,8 @@ public class Notification {
 	
 	public JFrame frame;
 	private JScrollPane scrollPane;
+	public static Connection myConn;
+	
 	
 	public Notification () {
 		initialize();
@@ -60,15 +43,22 @@ public class Notification {
 		return title;
 	}
 	
-	public static void addNotifications(ArrayList<Notification> a, Notification obj) {
-		a.add(obj);
-	  	//System.out.println("Its me! Your favorite notification!\n");
-	}
-	
-	public static void getNotifications(ArrayList<Notification> a) {
-		//System.out.println(a);
-		for(Notification x:a)
-			System.out.println(x.getTitle());
+	public static void getNotifications() {
+		
+		try {
+			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+			java.sql.Statement Stmt = myConn.createStatement();
+			
+			ResultSet myRs1 = Stmt.executeQuery("select info,days,hours,title,id,event_id,user_email from Notification" );
+		
+			while (myRs1.next()) {
+				//display to test
+				System.out.println("Info: " + myRs1.getString("info"));
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void initialize() {
