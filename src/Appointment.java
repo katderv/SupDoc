@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,81 +34,99 @@ public class Appointment extends JFrame {
 	
 	public static Connection myConn;
 	JFrame frame = new JFrame();
+	private static ArrayList<ResultSet> rs;
 	
 	
 	public Appointment () {
 		initialize();
 	}
 	
-	public static void getDay () {
+	public ArrayList<ResultSet> getDay () {
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			ResultSet myRs1 = Stmt.executeQuery("select days from Appointment" ); /////////////////////where user = "++++++";
-		
+			ResultSet myRs1 = Stmt.executeQuery("select days from Appointment inner join Patient on Patient.email = Appointment.patient" );
+			
+			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
+			
 			while (myRs1.next()) {
 				//display to test
 				System.out.println("Day of Appointment: " + myRs1.getString("days"));
+				rs.add(myRs1);
 			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return rs;
 	}
 	
-	public static void getHour () {
+	public ArrayList<ResultSet> getHour () {
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			ResultSet myRs1 = Stmt.executeQuery("select hours from Appointment" ); /////////////////////where user = "++++++";
+			ResultSet myRs1 = Stmt.executeQuery("select hours from Appointment inner join Patient on Patient.email = Appointment.patient" );
 		
+			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
+			
 			while (myRs1.next()) {
 				//display to test
 				System.out.println("Hour of Appointment: " + myRs1.getString("hours"));
+				rs.add(myRs1);
 			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return rs;
 	}
 	
 	
-	public static void getReason () {
+	public ArrayList<ResultSet> getReason () {
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			ResultSet myRs1 = Stmt.executeQuery("select reason from Appointment" ); /////////////////////where user = "++++++";
+			ResultSet myRs1 = Stmt.executeQuery("select reason from Appointment inner join Patient on Patient.email = Appointment.patient");
 		
+			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
+			
 			while (myRs1.next()) {
 				//display to test
 				System.out.println("Reason of Appointment: " + myRs1.getString("reason"));
+				rs.add(myRs1);
 			}
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return rs;
 	}
 	
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Appointment window = new Appointment();
-					window.frame.setVisible(true);
+					//window.frame.setVisible(true);
+					Appointment a = new Appointment();
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 
 	private void initialize() {
 

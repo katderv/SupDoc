@@ -30,9 +30,10 @@ public class Notification extends JFrame {
 	private String info = "yes";
 	
 	
-	public JFrame frame;
+	private JFrame frame;
 	private JScrollPane scrollPane;
 	public static Connection myConn;
+	private static ArrayList<ResultSet> rs;
 	
 	
 	public Notification () {
@@ -43,23 +44,29 @@ public class Notification extends JFrame {
 		return title;
 	}
 	
-	public static void getNotifications() {
+	public ArrayList<ResultSet> getNotifications() {
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
 			ResultSet myRs1 = Stmt.executeQuery("select info,days,hours,title,id,event_id,user_email from Notification" );
-		
+			
+			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
+			
 			while (myRs1.next()) {
 				//display to test
 				System.out.println("Info: " + myRs1.getString("info"));
+				rs.add(myRs1);
 			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return rs;
 	}
+	
 	
 	private void initialize() {
 		frame = new JFrame();
