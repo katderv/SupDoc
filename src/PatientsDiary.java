@@ -15,7 +15,6 @@ public class PatientsDiary {
 	
 	
 	public ArrayList<DiaryEntry> getDiaryEntries(){
-		//ArrayList<DiaryEntry> entries = new ArrayList<DiaryEntry>();
 		return entry;
 	}
 
