@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PatientsDiary {
 	
-	ArrayList<DiaryEntry> entry = new ArrayList<DiaryEntry>();
+	private ArrayList<DiaryEntry> entry = new ArrayList<DiaryEntry>();
 	
 	
 	public PatientsDiary (ArrayList<DiaryEntry> entr) {
@@ -14,9 +14,9 @@ public class PatientsDiary {
 	
 	
 	
-	ArrayList<DiaryEntry> getDiaryEntries(){
-		ArrayList<DiaryEntry> entries = new ArrayList<DiaryEntry>();
-		return entries;
+	public ArrayList<DiaryEntry> getDiaryEntries(){
+		//ArrayList<DiaryEntry> entries = new ArrayList<DiaryEntry>();
+		return entry;
 	}
 
 }

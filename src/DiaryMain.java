@@ -54,9 +54,9 @@ public class DiaryMain {
 	
 		
 		
-		ArrayList<DiaryEntry> de = patient_menu.diar.entry;
-		 for(int i=0; i<de.size(); i++) {
-			JButton btnNewButton = new JButton(de.get(i).getTitle());
+		//ArrayList<DiaryEntry> de = patient_menu.diar.getDiaryEntries();
+		 for(int i=0; i<patient_menu.diar.getDiaryEntries().size(); i++) {
+			JButton btnNewButton = new JButton(patient_menu.diar.getDiaryEntries().get(i).getTitle());
 			btnNewButton.setBackground(SystemColor.control);
 			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 			btnNewButton.setForeground(SystemColor.textInactiveText);
