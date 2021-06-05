@@ -1,41 +1,45 @@
-import java.time.LocalDateTime; // import the LocalDateTime class
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate; // import the LocalDate class
+import java.time.LocalTime; // import the LocalTime class
 public class Event {
-	private LocalDateTime daytime;
+	private LocalDate day;
+	private LocalTime time;
 	private String title;
-	
-	public Event(String daytime, String title) { // Constructor with all String arguments
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		this.daytime=LocalDateTime.parse(daytime, formatter);
+
+	public Event(String day, String time, String title) { // Constructor with all String arguments
+		this.day=LocalDate.parse(day);
+		this.time=LocalTime.parse(time);
 		this.title=title;
 	}
 	public Event() { // Constructor with no arguments get current date & time and title is null
-		this.daytime=LocalDateTime.now();
+		this.day=LocalDate.now();
+		this.time=LocalTime.now();
 		this.title=null;
 	}
 	public void printEvent() { //prints details of Event
-		//DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
-	    //String formatDateTime = this.daytime.format(format);  
-		System.out.println("Day & Time: "+ this.daytime+" | Title: "+ this.title);
+		System.out.println("day: "+ this.day+" time:"+ this.time+ " title: "+ this.title);
 	}
-	
-	public void addReminder() {// Adds a notification for the Event
-		
+
+	public void addReminder() { // Adds a notification for the Event
+
 	}
 	/*Getters */
-	public LocalDateTime getDayTime() {
-		return this.daytime;
+	public LocalDate getDay() {
+		return this.day;
+	}
+	public LocalTime getTime() {
+		return this.time;
 	}
 	public String getTitle() {
 		return this.title;
 	}
 	/*Setters */
-	public void setDay(String daytime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		this.daytime=LocalDateTime.parse(daytime, formatter);
-	}		
+	public void setDay(String day) {
+		this.day=LocalDate.parse(day);
+	}	
+	public void setTime(String time) {
+		this.time=LocalTime.parse(time);
+	}	
 	public void setTitle(String title) {
 		this.title=title;
 	}
 }
-
