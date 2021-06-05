@@ -52,15 +52,12 @@ public class DiaryMain {
 		frame.getContentPane().add(lblNewLabel);
 		
 	
-		
-		
-		ArrayList<DiaryEntry> de = patient_menu.diar.entry;
-		 for(int i=0; i<de.size(); i++) {
-			JButton btnNewButton = new JButton(de.get(i).getTitle());
+
+		 for(int i=0; i<patient_menu.diar.getDiaryEntries().size(); i++) {
+			JButton btnNewButton = new JButton(patient_menu.diar.getDiaryEntries().get(i).getTitle());
 			btnNewButton.setBackground(SystemColor.control);
 			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 			btnNewButton.setForeground(SystemColor.textInactiveText);
-			//btnNewButton.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 			btnNewButton.setBounds(0, 37+i*37, 264, 38);
 			frame.getContentPane().add(btnNewButton);
 			}
