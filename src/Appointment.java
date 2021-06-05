@@ -13,6 +13,7 @@ import java.time.LocalTime;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -94,7 +95,7 @@ public class Appointment extends JFrame {
 	}
 	
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -106,7 +107,7 @@ public class Appointment extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	private void initialize() {
 
@@ -131,15 +132,14 @@ public class Appointment extends JFrame {
 		lblNewLabel.setBounds(20, 55, 220, 195);
 		frame.getContentPane().add(lblNewLabel);
 		Image img = new ImageIcon(this.getClass().getResource("/book_appointment.png")).getImage();
-		Image newImage =  img.getScaledInstance(245, 210, Image.SCALE_DEFAULT);
-		lblNewLabel.setIcon(new ImageIcon(newImage));
+		lblNewLabel.setIcon(new ImageIcon(img));
 		
 		
 		JLabel lblNewLabel_1 = new JLabel("<html>Ημ/νια</html>");
 		lblNewLabel_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(30, 260, 91, 20);
+		lblNewLabel_1.setBounds(20, 270, 91, 20);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
@@ -149,7 +149,7 @@ public class Appointment extends JFrame {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBackground(SystemColor.control);
 		textField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
-		textField.setBounds(131, 261, 91, 20);
+		textField.setBounds(121, 270, 91, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -175,24 +175,43 @@ public class Appointment extends JFrame {
 		lblNewLabel_2.setForeground(Color.DARK_GRAY);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(30, 330, 91, 20);
+		lblNewLabel_2.setBounds(20, 310, 91, 20);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		///////////////////////
-		///combo box probably
+		JComboBox cb = new JComboBox();
+		cb.setBounds(121, 310, 91, 25);
+		cb.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		frame.getContentPane().add(cb);
+		cb.addItem("9:00");
+		cb.addItem("10:00");
+		cb.addItem("11:00");
+		cb.addItem("12:00");
+		cb.addItem("13:00");
+		((JLabel)cb.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		///////////////////////
 		
 		JLabel lblNewLabel_3 = new JLabel("<html>Λόγος<br/> Επίσκεψης</html>");
 		lblNewLabel_3.setForeground(Color.DARK_GRAY);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(35, 400, 91, 35);
+		lblNewLabel_3.setBounds(20, 350, 91, 35);
 		frame.getContentPane().add(lblNewLabel_3);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		///////////////////////
-		///combo box probably
+		JComboBox cb1 = new JComboBox();
+		cb1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cb1.setBounds(121, 360, 91, 25);
+		frame.getContentPane().add(cb1);
+		cb1.addItem("Check Up");
+		cb1.addItem("None");
 		///////////////////////
 		
-	}
+		JButton btnNewButton_1 = new JButton("Κλείσιμο Ραντεβού");
+		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
+		btnNewButton_1.setBounds(60, 420, 120, 20);
+		frame.getContentPane().add(btnNewButton_1);
+		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
+		
+	}
 }
