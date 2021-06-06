@@ -34,7 +34,6 @@ public class Notification extends JFrame {
 	private JScrollPane scrollPane;
 	public static Connection myConn;
 	public Notification notif;
-	ArrayList<String> not = new ArrayList<String>();
 	public String information;
 	
 	public Notification () {
@@ -58,6 +57,7 @@ public class Notification extends JFrame {
 	}*/
 	
 	public ArrayList<String> getNotifications() {
+		ArrayList<String> not = new ArrayList<String>();
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
@@ -125,8 +125,7 @@ public class Notification extends JFrame {
 		
 		frame.getContentPane().add(panel);
 
-		getNotifications();
-		//for(int i=0; i<2; i++) {
+		ArrayList<String> not = getNotifications();
 		for(int i=0; i<not.size(); i++) {
 			//JButton btn1 = new JButton("<html>Όνομα Ειδοποίησης<br/>Λεπτομέρειες</html>");
 			JButton btn1 = new JButton(not.get(i));
