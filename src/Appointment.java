@@ -225,7 +225,7 @@ public class Appointment extends JFrame {
 							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 							//java.sql.Statement Stmt = myConn.createStatement();
 							
-							//ResultSet myRs1 = Stmt.executeQuery("insert into Appointment(doc,patient,reason,duration,hours,days) values ('kate@email.com','johnny@email.com', '\" +reason+\"',	20 , '\" +hour+\"', '\" +day+\"'	");
+							//ResultSet myRs1 = Stmt.executeQuery("insert into Appointment(doc,patient,reason,duration,hours,days) values ('kate@email.com','johnny@email.com', '" +reason+ "',	20 , '" +hour+"', '" +day+"'	");
 							
 							
 						} catch (Exception e) {
