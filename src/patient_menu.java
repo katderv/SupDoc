@@ -80,6 +80,7 @@ public class patient_menu {
 						try {
 							Notification window1 = new Notification();
 							window1.frame.setVisible(true);
+							
 						
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -160,6 +161,7 @@ public class patient_menu {
 							diar = new PatientsDiary(entr);
 							DiaryMain window = new DiaryMain();
 							window.frame.setVisible(true);
+							frame_patient_menu.dispose();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
