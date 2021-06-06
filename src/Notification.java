@@ -33,8 +33,9 @@ public class Notification extends JFrame {
 	public JFrame frame;
 	private JScrollPane scrollPane;
 	public static Connection myConn;
-	public static ArrayList<ResultSet> rs;
-	
+	public Notification notif;
+	ArrayList<String> not = new ArrayList<String>();
+	public String information;
 	
 	public Notification () {
 		initialize();
@@ -44,29 +45,51 @@ public class Notification extends JFrame {
 		return title;
 	}
 	
-	public ArrayList<ResultSet> getNotifications() {
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					//login window = new login();
+					//window.frame.setVisible(true);
+					Notification asp = new Notification();
+					asp.getNotifications();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
+	
+	public ArrayList<String> getNotifications() {
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			ResultSet myRs1 = Stmt.executeQuery("select info,days,hours,title,id,event_id,user_email from Notification" );
+			String user_email = login.email;
 			
-			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
+			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '\" + user_email + \"' = user_email" );
+			
+			System.out.println("Info: ");
+			System.out.println(user_email);
 			
 			while (myRs1.next()) {
-				//display to test
-				System.out.println("Info: " + myRs1.getString("info"));
-				rs.add(myRs1);
+				System.out.println("BOOM");
+				information = myRs1.getString("info");
+				not.add(information);
 			}
+			
+			System.out.println("BOOM11111");
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return rs;
+		System.out.println("BOOMMMMMMMMMM");
+		
+		return not;
 	}
-	
+
 	
 	private void initialize() {
 		frame = new JFrame();
@@ -106,9 +129,12 @@ public class Notification extends JFrame {
 		panel.setBounds(20, 88, 220, 346);
 		
 		frame.getContentPane().add(panel);
+
 		
-		for(int i=0; i<20; i++) {
-			JButton btn1 = new JButton("<html>Όνομα Ειδοποίησης<br/>Λεπτομέρειες</html>");
+		//for(int i=0; i<2; i++) {
+		for(int i=0; i<getNotifications().size(); i++) {
+			//JButton btn1 = new JButton("<html>Όνομα Ειδοποίησης<br/>Λεπτομέρειες</html>");
+			JButton btn1 = new JButton(getNotifications().get(i));
 			btn1.setBackground(SystemColor.control);
 			btn1.setHorizontalAlignment(SwingConstants.LEFT);
 			btn1.setForeground(SystemColor.textInactiveText);
@@ -116,7 +142,7 @@ public class Notification extends JFrame {
 			btn1.setBounds(0, 0+i*70, 262, 70);
 			panel.add(btn1);
 			btn1.setHorizontalAlignment(SwingConstants.LEFT);
-			}
+		}
 		
 		JScrollPane sp = new JScrollPane(panel);
 		sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
