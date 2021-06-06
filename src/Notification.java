@@ -44,18 +44,6 @@ public class Notification extends JFrame {
 		return title;
 	}
 	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Notification a = new Notification();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-	
 	public ArrayList<String> getNotifications() {
 		ArrayList<String> not = new ArrayList<String>();
 		
