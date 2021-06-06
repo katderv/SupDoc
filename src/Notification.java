@@ -45,7 +45,7 @@ public class Notification extends JFrame {
 		return title;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,7 +55,7 @@ public class Notification extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 	
 	public ArrayList<String> getNotifications() {
 		
@@ -63,23 +63,18 @@ public class Notification extends JFrame {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			//String user_email = login.email;
-			String user_email = "johnny@email.com";
+			String user_email = login.email;
+			//String user_email = "johnny@email.com";
 			
 			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + user_email + "' = user_email" );
 
-			System.out.println("Info: ");
-			System.out.println(user_email);
-			System.out.println(myRs1);
 			
 			while (myRs1.next()) {
-				System.out.println("BOOM");
 				information = myRs1.getString("info");
 				not.add(information);
 				//System.out.println(not);
 			}
 			
-			System.out.println("BOOM11111");
 			//System.out.println(not);
 			
 		}catch (Exception e) {
@@ -130,11 +125,11 @@ public class Notification extends JFrame {
 		
 		frame.getContentPane().add(panel);
 
-		
+		getNotifications();
 		//for(int i=0; i<2; i++) {
-		for(int i=0; i<getNotifications().size(); i++) {
+		for(int i=0; i<not.size(); i++) {
 			//JButton btn1 = new JButton("<html>Όνομα Ειδοποίησης<br/>Λεπτομέρειες</html>");
-			JButton btn1 = new JButton(getNotifications().get(i));
+			JButton btn1 = new JButton(not.get(i));
 			btn1.setBackground(SystemColor.control);
 			btn1.setHorizontalAlignment(SwingConstants.LEFT);
 			btn1.setForeground(SystemColor.textInactiveText);
