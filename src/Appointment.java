@@ -3,8 +3,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -64,8 +64,8 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
-	public void setDate () {
-		
+	public void setDate (LocalDate ld) {
+		this.day = ld;
 	}
 	
 	public ArrayList<ResultSet> getHour () {
@@ -91,8 +91,8 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
-	public void setHour () {
-			
+	public void setHour (LocalTime lt) {
+			this.hour = lt;
 	}
 	
 	public ArrayList<ResultSet> getReason () {
@@ -119,11 +119,11 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
-	public void setReason () {
-		
+	public void setReason (String st) {
+		this.reason = st;
 	}
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -136,7 +136,7 @@ public class Appointment extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	private void initialize() {
 
@@ -182,22 +182,7 @@ public class Appointment extends JFrame {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.addFocusListener(new FocusListener() {
 
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField.getText().equals("Όνομα")) {
-                	textField.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if(textField.getText().isEmpty()) {
-                	textField.setText("Όνομα");
-                }
-            }
-        });
 		///////////////////////
 		
 		JLabel lblNewLabel_2 = new JLabel("<html>Ώρα</html>");
@@ -240,7 +225,30 @@ public class Appointment extends JFrame {
 		btnNewButton_1.setBounds(60, 420, 120, 20);
 		frame.getContentPane().add(btnNewButton_1);
 		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							// doc patient reasonO duration hoursO daysO id
+							String day = textField.getText();
+							String hour = (String) cb.getSelectedItem();
+							String reason = (String) cb1.getSelectedItem();
 
+							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+							//java.sql.Statement Stmt = myConn.createStatement();
+							
+							//ResultSet myRs1 = Stmt.executeQuery("insert into Appointment(doc,patient,reason,duration,hours,days) values ('kate@email.com','johnny@email.com', '\" +reason+\"',	20 , '\" +hour+\"', '\" +day+\"'	");
+							
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		
 	}
 }
