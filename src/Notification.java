@@ -45,20 +45,17 @@ public class Notification extends JFrame {
 		return title;
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//login window = new login();
-					//window.frame.setVisible(true);
-					Notification asp = new Notification();
-					asp.getNotifications();
+					Notification a = new Notification();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 	
 	public ArrayList<String> getNotifications() {
 		
@@ -66,9 +63,10 @@ public class Notification extends JFrame {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			String user_email = login.email;
+			//String user_email = login.email;
+			String user_email = "johnny@email.com";
 			
-			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + login.email + "' = user_email" );
+			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + user_email + "' = user_email" );
 
 			System.out.println("Info: ");
 			System.out.println(user_email);
