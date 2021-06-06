@@ -123,7 +123,7 @@ public class Appointment extends JFrame {
 		
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -136,7 +136,7 @@ public class Appointment extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	private void initialize() {
 
