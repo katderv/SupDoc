@@ -68,10 +68,11 @@ public class Notification extends JFrame {
 			
 			String user_email = login.email;
 			
-			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '\" + user_email + \"' = user_email" );
-			
+			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + user_email + "' = user_email" );
+
 			System.out.println("Info: ");
 			System.out.println(user_email);
+			System.out.println(myRs1);
 			
 			while (myRs1.next()) {
 				System.out.println("BOOM");
