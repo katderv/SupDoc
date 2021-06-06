@@ -64,6 +64,10 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
+	public void setDate () {
+		
+	}
+	
 	public ArrayList<ResultSet> getHour () {
 		
 		try {
@@ -87,6 +91,9 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
+	public void setHour () {
+			
+	}
 	
 	public ArrayList<ResultSet> getReason () {
 		
@@ -112,13 +119,16 @@ public class Appointment extends JFrame {
 		return rs;
 	}
 	
+	public void setReason () {
+		
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Appointment window = new Appointment();
-					//window.frame.setVisible(true);
+					window.frame.setVisible(true);
 					Appointment a = new Appointment();
 
 				} catch (Exception e) {
