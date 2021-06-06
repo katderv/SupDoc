@@ -10,6 +10,7 @@ import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
@@ -132,11 +133,9 @@ public class login {
 		JButton btnNewButton = new JButton("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//DBConnection.connect();// Connecting with the DB
-				// -> We need a condition here when the database is ready <-				
-				// If User is Doctor
 				email = txtEmail.getText();
 				String passw = passwordField.getText();
+				boolean correct=false;
 				
 						try {							
 							
@@ -144,8 +143,9 @@ public class login {
 							java.sql.Statement Stmt = myConn.createStatement();
 							
 							ResultSet myRs1 = Stmt.executeQuery("select nam from Patient where '" + email + "'= email and '"+ passw + "' = passw" );
-							
+							// If the User is a Patient
 							while (myRs1.next()) {
+								correct=true;
 								name = myRs1.getString("nam");
 								 EventQueue.invokeLater(new Runnable() {
 										public void run() {
@@ -162,8 +162,9 @@ public class login {
 						       }
 							java.sql.Statement Stmt2 = myConn.createStatement();
 							ResultSet myRs2 = Stmt2.executeQuery("select nam from Doctor where '" + email + "'= email and '"+ passw + "' = passw" );
-							
+							// If the User is a Doctor
 							while (myRs2.next()) {
+								correct=true;
 								name = myRs2.getString("nam");
 								 EventQueue.invokeLater(new Runnable() {
 										public void run() {
@@ -184,6 +185,10 @@ public class login {
 						} catch (Exception er) {
 							er.printStackTrace();
 						}
+						
+						//Error
+						if(correct==false)
+							JOptionPane.showMessageDialog(frame,"Wrong username or password");
 					
 				
 		
