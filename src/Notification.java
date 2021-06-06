@@ -68,7 +68,7 @@ public class Notification extends JFrame {
 			
 			String user_email = login.email;
 			
-			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + user_email + "' = user_email" );
+			ResultSet myRs1 = Stmt.executeQuery("select info from Notification where '" + login.email + "' = user_email" );
 
 			System.out.println("Info: ");
 			System.out.println(user_email);
@@ -78,15 +78,16 @@ public class Notification extends JFrame {
 				System.out.println("BOOM");
 				information = myRs1.getString("info");
 				not.add(information);
+				//System.out.println(not);
 			}
 			
 			System.out.println("BOOM11111");
+			//System.out.println(not);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("BOOMMMMMMMMMM");
 		
 		return not;
 	}
