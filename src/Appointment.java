@@ -123,20 +123,6 @@ public class Appointment extends JFrame {
 		this.reason = st;
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Appointment window = new Appointment();
-					window.frame.setVisible(true);
-					Appointment a = new Appointment();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	private void initialize() {
 

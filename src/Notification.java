@@ -30,10 +30,10 @@ public class Notification extends JFrame {
 	private String info = "yes";
 	
 	
-	private JFrame frame;
+	public JFrame frame;
 	private JScrollPane scrollPane;
 	public static Connection myConn;
-	private static ArrayList<ResultSet> rs;
+	public static ArrayList<ResultSet> rs;
 	
 	
 	public Notification () {
