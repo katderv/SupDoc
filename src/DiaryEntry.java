@@ -1,18 +1,21 @@
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class DiaryEntry extends PatientsDiary {
+public class DiaryEntry {
 
-	String title;
-	LocalDate date = LocalDate.now();
-	LocalTime timeOfEntry = LocalTime.now();
-	String notes;
+	private String title;
+	private LocalDate date;
+	private LocalTime timeOfEntry;
+	private String notes;
 	boolean important = false;
 	
+	public DiaryEntry() {
+	}
 	
-	public DiaryEntry (ArrayList<DiaryEntry> entry, String title, LocalDate date, LocalTime time, String notes, boolean imp) {
-		super(entry);
+	public DiaryEntry (String title, LocalDate date, LocalTime time, String notes, boolean imp) {
 		this.title = title;
 		this.date = date;
 		this.timeOfEntry = time;
@@ -31,5 +34,9 @@ public class DiaryEntry extends PatientsDiary {
 	 public void markAsImportant(boolean imp) {
 		    this.important = true;
 	 }
+	 
+	 public String getTitle() {
+		    return title;
+		  }
 	
 }

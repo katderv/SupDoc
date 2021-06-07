@@ -19,7 +19,7 @@ import java.awt.Image;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 
-public class patient_file {
+public class patients_file {
 
 	public JFrame frame;
 
@@ -28,7 +28,7 @@ public class patient_file {
 	/**
 	 * Create the application.
 	 */
-	public patient_file() {
+	public patients_file() {
 		initialize();
 	}
 
