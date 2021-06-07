@@ -11,16 +11,20 @@ enum Gender {
 public class User {
 	private String email;
 	private String password;
-	private String name;
+	protected String name;
 	private String surname;
-	private LocalDate dateOfBirth;
-	private Gender gender;
+	protected LocalDate dateOfBirth;
+	protected Gender gender;
 	private String city;
 	private File profPhoto;
 	
 	public String getUserType(Object obj) { // Return user's type as a String (Patient or Doctor)
 		return obj.getClass().getName();
 	}
+	
+	public User() {
+		
+	};
 	
 	public User(String email, String password, String name, String surname, String dateOfBirth, Gender gender, String city, File profPhot) {
 		this.email=email;
