@@ -22,6 +22,10 @@ public class User {
 		return obj.getClass().getName();
 	}
 	
+	public User() {
+		
+	};
+	
 	public User(String email, String password, String name, String surname, String dateOfBirth, Gender gender, String city, File profPhot) {
 		this.email=email;
 		this.password=password;

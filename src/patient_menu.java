@@ -78,7 +78,7 @@ public class patient_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Notification window1 = new Notification();
+							NotificationList window1 = new NotificationList();
 							window1.frame.setVisible(true);
 						
 						} catch (Exception e) {
@@ -160,6 +160,7 @@ public class patient_menu {
 							diar = new PatientsDiary(entr);
 							DiaryMain window = new DiaryMain();
 							window.frame.setVisible(true);
+							frame_patient_menu.dispose();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

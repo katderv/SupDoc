@@ -75,7 +75,7 @@ public class doctor_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Notification window1 = new Notification();
+							NotificationList window1 = new NotificationList();
 							window1.frame.setVisible(true);
 						
 						} catch (Exception e) {
@@ -123,7 +123,7 @@ public class doctor_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							patient_file window = new patient_file();
+							patients_file window = new patients_file();
 							window.frame.setVisible(true);
 							frame.dispose();
 						} catch (Exception e) {
