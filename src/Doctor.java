@@ -30,7 +30,7 @@ public class Doctor extends User{
 		try {
 			Stmt2 = login.myConn.createStatement();
 			String ins ="INSERT INTO isRegularOf (pat_email, doc_email) VALUES ('"+"patient email"+ "', '"+ "doctor email" + "');";
-			 "email = '" + login.email + "';");
+
 			Stmt2.execute(ins);
 			
 		} catch (SQLException e) {
