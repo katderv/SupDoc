@@ -137,10 +137,19 @@ public class login {
 				String passw = passwordField.getText();
 				boolean correct=false;
 				
+				
+				
 						try {							
 							
 							myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 							java.sql.Statement Stmt = myConn.createStatement();
+							
+							Patient pat= new Patient(); ///////////////////////<<<<<<<<<<<<<<<<
+							ArrayList<ArrayList<String>> mydcs= pat.getMyDoctors();///<<<<<<<<<
+							System.out.println(mydcs);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+							System.out.println("\n\n");//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+							ArrayList<ArrayList<String>> neardcs= pat.getNearByDoctors();//<<<<
+							System.out.println(neardcs);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 							
 							ResultSet myRs1 = Stmt.executeQuery("select nam from Patient where '" + email + "'= email and '"+ passw + "' = passw" );
 							// If the User is a Patient
