@@ -8,23 +8,8 @@ import java.awt.Font;
 
 public class transition_screen {
 
-	private JFrame frame;
+	public JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					transition_screen window = new transition_screen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -46,6 +31,26 @@ public class transition_screen {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(10, 59, 246, 171);
 		frame.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							FindDoctor window = new FindDoctor();
+							window.frame.setVisible(true);
+							frame.dispose();
+							
+						
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+		
+		
 		
 		JButton btnNewButton_1 = new JButton("\u0399\u03B1\u03C4\u03C1\u03CC\u03C2 \u03BC\u03BF\u03C5");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
