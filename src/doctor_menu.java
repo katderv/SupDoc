@@ -123,7 +123,7 @@ public class doctor_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							patients_file window = new patients_file();
+							patient_file window = new patient_file();
 							window.frame.setVisible(true);
 							frame.dispose();
 						} catch (Exception e) {
