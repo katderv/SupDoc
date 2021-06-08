@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import java.awt.event.ActionEvent;
 public class DiaryMain {
 
 	public JFrame frame;
+	public static  double height;
 
 	
 	/**
@@ -76,6 +78,25 @@ public class DiaryMain {
 			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 			btnNewButton.setForeground(SystemColor.textInactiveText);
 			btnNewButton.setBounds(0, 37+i*37, 264, 38);
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {		
+								height = btnNewButton.getHeight();
+								System.out.println(height);
+								height = (height-37)/37;
+								
+								SeeDiaryEntry window = new SeeDiaryEntry();
+								window.frame.setVisible(true);
+								frame.dispose();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				}
+			});
 			frame.getContentPane().add(btnNewButton);
 			}
 		

@@ -78,7 +78,7 @@ public class patient_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							NotificationList window1 = new NotificationList();
+							NotificationGUI window1 = new NotificationGUI();
 							window1.frame.setVisible(true);
 						
 						} catch (Exception e) {
@@ -119,6 +119,26 @@ public class patient_menu {
 		frame_patient_menu.getContentPane().add(btnNewButton_4);
 		Image img6 = new ImageIcon(this.getClass().getResource("/doc_sch.png")).getImage();
 		btnNewButton_4.setIcon(new ImageIcon(img6));
+		btnNewButton_4.addActionListener(new ActionListener() { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							transition_screen window4 = new transition_screen();
+							window4.frame.setVisible(true);
+							frame_patient_menu.dispose();
+							
+						
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+		
+		
 		
 		
 		JButton btnNewButton_5 = new JButton("      \u03A4\u03BF \u03B9\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC \u03BC\u03BF\u03C5      ");

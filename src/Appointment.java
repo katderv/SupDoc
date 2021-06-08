@@ -30,11 +30,12 @@ public class Appointment {
 	Doctor doc;
 	Patient patient;
 	int duration = 0;
-	
+
 	
 	public static Connection myConn;
 	private static ArrayList<ResultSet> rs;
 	
+
 	
 	public Appointment () {
 	}
