@@ -38,5 +38,13 @@ public class DiaryEntry {
 	 public String getTitle() {
 		    return title;
 		  }
+	 
+	 public String getNotes() {
+		    return notes;
+		  }
+	 
+	 public boolean getImp() {
+		    return important;
+		  }
 	
 }
