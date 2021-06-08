@@ -18,6 +18,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import com.toedter.calendar.JDateChooser;
 
 public class SignUpDoctor {
 
@@ -28,7 +31,6 @@ public class SignUpDoctor {
 	private JTextField txtEmail;
 	private JPasswordField passwordField;
 	private JTextField textField_2;
-	private JTextField textField_3;
 	private JTextField textField_4;
 	private JButton btnNewButton_1;
 	private JScrollPane scrollPane;
@@ -43,6 +45,8 @@ public class SignUpDoctor {
 	private JLabel lblNewLabel_6;
 	private JPanel panel;
 	private JScrollPane scrollPane_1;
+	private JTextField textField_11;
+	private JComboBox genderBox;
 
 	/**
 	 * Create the application.
@@ -108,7 +112,7 @@ public class SignUpDoctor {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		textField = new JTextField();
-		textField.setBounds(34, 182, 184, 20);
+		textField.setBounds(34, 170, 184, 20);
 		panel.add(textField);
 		textField.setForeground(SystemColor.textInactiveText);
 		textField.setText("\u038C\u03BD\u03BF\u03BC\u03B1");
@@ -116,9 +120,26 @@ public class SignUpDoctor {
 		textField.setBackground(SystemColor.control);
 		textField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField.setColumns(10);
+		textField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals("\u038C\u03BD\u03BF\u03BC\u03B1")) {
+                	textField.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField.getText().isEmpty()) {
+                	textField.setText("\u038C\u03BD\u03BF\u03BC\u03B1");
+                }
+            }
+        });
+
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(34, 213, 182, 20);
+		textField_1.setBounds(34, 201, 182, 20);
 		panel.add(textField_1);
 		textField_1.setText("\u0395\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF");
 		textField_1.setForeground(SystemColor.textInactiveText);
@@ -126,9 +147,26 @@ public class SignUpDoctor {
 		textField_1.setBackground(SystemColor.control);
 		textField_1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_1.setColumns(10);
+		textField_1.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_1.getText().equals("\u0395\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF")) {
+                	textField_1.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_1.getText().isEmpty()) {
+                	textField_1.setText("\u0395\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF");
+                }
+            }
+        });
+		
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(34, 244, 182, 20);
+		txtEmail.setBounds(34, 232, 182, 20);
 		panel.add(txtEmail);
 		txtEmail.setText("Email");
 		txtEmail.setForeground(SystemColor.textInactiveText);
@@ -154,16 +192,33 @@ public class SignUpDoctor {
 		txtEmail.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(34, 275, 182, 20);
+		passwordField.setBounds(34, 263, 182, 20);
 		panel.add(passwordField);
 		passwordField.setText("password");
 		passwordField.setForeground(SystemColor.textInactiveText);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		passwordField.setBackground(SystemColor.control);
 		passwordField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
+		passwordField.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (passwordField.getText().equals("password")) {
+                	passwordField.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(passwordField.getText().isEmpty()) {
+                	passwordField.setText("password");
+                }
+            }
+        });
 		
+		/*// Date of Birth - Old Version
 		textField_2 = new JTextField();
-		textField_2.setBounds(34, 306, 182, 20);
+		textField_2.setBounds(34, 294, 182, 20);
 		panel.add(textField_2);
 		textField_2.setText("--/--/--");
 		textField_2.setColumns(10);
@@ -187,35 +242,21 @@ public class SignUpDoctor {
             }
         });
 		textField_2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
+		*/
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(34, 337, 182, 20);
-		panel.add(textField_3);
-		textField_3.setText("\u03A6\u03CD\u03BB\u03BF");
-		textField_3.setColumns(10);
-		textField_3.setForeground(SystemColor.textInactiveText);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_3.setBackground(SystemColor.control);
-		textField_3.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField_3.getText().equals("Φύλο")) {
-                	textField_3.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if(textField_3.getText().isEmpty()) {
-                	textField_3.setText("Φύλο");
-                }
-            }
-        });
-		textField_3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
+		//Date of Birth - with JCalendar
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(34, 295, 184, 19);
+		panel.add(dateChooser);
+		
+		genderBox = new JComboBox();
+		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Female", "Male", "Other"}));
+		genderBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		genderBox.setBounds(34, 324, 184, 21);
+		panel.add(genderBox);
 		
 		textField_4 = new JTextField();
-		textField_4.setBounds(34, 368, 182, 20);
+		textField_4.setBounds(34, 356, 182, 20);
 		panel.add(textField_4);
 		textField_4.setText("\u03A0\u03CC\u03BB\u03B7");
 		textField_4.setColumns(10);
@@ -226,7 +267,7 @@ public class SignUpDoctor {
 
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField_4.getText().equals("Πόλη")) {
+                if (textField_4.getText().equals("\u03A0\u03CC\u03BB\u03B7")) {
                 	textField_4.setText("");
                 }
             }
@@ -234,7 +275,7 @@ public class SignUpDoctor {
             @Override
             public void focusLost(FocusEvent e) {
                 if(textField_4.getText().isEmpty()) {
-                	textField_4.setText("Πόλη");
+                	textField_4.setText("\u03A0\u03CC\u03BB\u03B7");
                 }
             }
         });
@@ -248,14 +289,14 @@ public class SignUpDoctor {
 		btnNewButton_1.setBackground(SystemColor.textInactiveText);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("\u03A3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u0399\u03B1\u03C4\u03C1\u03BF\u03CD");
-		lblNewLabel_3_1.setBounds(34, 409, 184, 27);
+		lblNewLabel_3_1.setBounds(34, 416, 184, 27);
 		panel.add(lblNewLabel_3_1);
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(34, 435, 184, 2);
+		lblNewLabel_4.setBounds(34, 442, 184, 2);
 		panel.add(lblNewLabel_4);
 		Image img3 = new ImageIcon(this.getClass().getResource("/signUpDoc_bar.png")).getImage();
 		lblNewLabel_4.setIcon(new ImageIcon(img3));
@@ -269,6 +310,23 @@ public class SignUpDoctor {
 		textField_5.setColumns(10);
 		textField_5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_5.setBackground(SystemColor.menu);
+		textField_5.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_5.getText().equals("\u0395\u03B9\u03B4\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1")) {
+                	textField_5.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_5.getText().isEmpty()) {
+                	textField_5.setText("\u0395\u03B9\u03B4\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1");
+                }
+            }
+        });
+
 		
 		textField_6 = new JTextField();
 		textField_6.setBounds(34, 494, 184, 20);
@@ -279,6 +337,22 @@ public class SignUpDoctor {
 		textField_6.setColumns(10);
 		textField_6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_6.setBackground(SystemColor.menu);
+		textField_6.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_6.getText().equals("\u0394\u03B9\u03B5\u03CD\u03B8\u03C5\u03BD\u03C3\u03B7")) {
+                	textField_6.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_6.getText().isEmpty()) {
+                	textField_6.setText("\u0394\u03B9\u03B5\u03CD\u03B8\u03C5\u03BD\u03C3\u03B7");
+                }
+            }
+        });
 		
 		textField_7 = new JTextField();
 		textField_7.setBounds(34, 534, 109, 20);
@@ -289,6 +363,23 @@ public class SignUpDoctor {
 		textField_7.setColumns(10);
 		textField_7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_7.setBackground(SystemColor.menu);
+		textField_7.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_7.getText().equals("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE")) {
+                	textField_7.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_7.getText().isEmpty()) {
+                	textField_7.setText("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE");
+                }
+            }
+        });
+		
 		
 		textField_8 = new JTextField();
 		textField_8.setBounds(153, 534, 65, 20);
@@ -299,6 +390,22 @@ public class SignUpDoctor {
 		textField_8.setColumns(10);
 		textField_8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_8.setBackground(SystemColor.menu);
+		textField_8.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_8.getText().equals("\u03A4.\u039A.")) {
+                	textField_8.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_8.getText().isEmpty()) {
+                	textField_8.setText("\u03A4.\u039A.");
+                }
+            }
+        });
 		
 		textField_9 = new JTextField();
 		textField_9.setBounds(34, 571, 184, 20);
@@ -309,6 +416,22 @@ public class SignUpDoctor {
 		textField_9.setColumns(10);
 		textField_9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_9.setBackground(SystemColor.menu);
+		textField_9.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_9.getText().equals("\u03A4\u03B7\u03BB\u03AD\u03C6\u03C9\u03BD\u03BF \u0399\u03B1\u03C4\u03C1\u03B5\u03AF\u03BF\u03C5")) {
+                	textField_9.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_9.getText().isEmpty()) {
+                	textField_9.setText("\u03A4\u03B7\u03BB\u03AD\u03C6\u03C9\u03BD\u03BF \u0399\u03B1\u03C4\u03C1\u03B5\u03AF\u03BF\u03C5");
+                }
+            }
+        });
 		
 		textField_10 = new JTextField();
 		textField_10.setBounds(34, 609, 184, 20);
@@ -319,6 +442,22 @@ public class SignUpDoctor {
 		textField_10.setColumns(10);
 		textField_10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		textField_10.setBackground(SystemColor.menu);
+		textField_10.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField_10.getText().equals("\u039A\u03B9\u03BD\u03B7\u03C4\u03CC")) {
+                	textField_10.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textField_10.getText().isEmpty()) {
+                	textField_10.setText("\u039A\u03B9\u03BD\u03B7\u03C4\u03CC");
+                }
+            }
+        });
 		
 		lblNewLabel_5 = new JLabel("New label");
 		lblNewLabel_5.setBounds(34, 657, 5, 5);
@@ -339,54 +478,37 @@ public class SignUpDoctor {
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.setBackground(SystemColor.textInactiveText);
-		passwordField.addFocusListener(new FocusListener() {
+		
+		textField_11 = new JTextField();
+		textField_11.setText("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE");
+		textField_11.setForeground(SystemColor.textInactiveText);
+		textField_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_11.setColumns(10);
+		textField_11.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
+		textField_11.setBackground(SystemColor.menu);
+		textField_11.setBounds(34, 386, 182, 20);
+		panel.add(textField_11);
+		textField_11.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
-                if (passwordField.getText().equals("password")) {
-                	passwordField.setText("");
+                if (textField_11.getText().equals("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE")) {
+                	textField_11.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(passwordField.getText().isEmpty()) {
-                	passwordField.setText("password");
+                if(textField_11.getText().isEmpty()) {
+                	textField_11.setText("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE");
                 }
             }
         });
-		textField_1.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField_1.getText().equals("Επώνυμο")) {
-                	textField_1.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if(textField_1.getText().isEmpty()) {
-                	textField_1.setText("Επώνυμο");
-                }
-            }
-        });
-		textField.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField.getText().equals("Όνομα")) {
-                	textField.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if(textField.getText().isEmpty()) {
-                	textField.setText("Όνομα");
-                }
-            }
-        });
+		
+		
+		
+		
+		
 		
 		
 	}

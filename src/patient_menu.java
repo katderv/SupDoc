@@ -78,9 +78,8 @@ public class patient_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Notification window1 = new Notification();
+							NotificationGUI window1 = new NotificationGUI();
 							window1.frame.setVisible(true);
-							
 						
 						} catch (Exception e) {
 							e.printStackTrace();
