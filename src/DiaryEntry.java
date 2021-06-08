@@ -46,5 +46,5 @@ public class DiaryEntry {
 	 public boolean getImp() {
 		    return important;
 		  }
-	
+	 
 }

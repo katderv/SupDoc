@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
