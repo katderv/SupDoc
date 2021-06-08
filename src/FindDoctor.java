@@ -85,9 +85,9 @@ public class FindDoctor {
 							try {
 								String b_text = btn1.getText();
 								String[] dem = b_text.split(">|\\.");
-								System.out.println(dem[1]);
+								//System.out.println(dem[1]);
 								int indx= Integer.parseInt(dem[1]) -1;
-								Appointment window = new Appointment(nearD.get(indx).get(0));
+								BookAppointment window = new BookAppointment(nearD.get(indx).get(0));
 								
 								//System.out.println(dem[0]);
 								//window.setEmail(dem[0]); //<<<<<<<<<<<<<<<<<<<

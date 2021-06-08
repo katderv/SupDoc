@@ -25,7 +25,27 @@ public class BookAppointment extends JFrame {
 	JFrame frame = new JFrame();
 	private static ArrayList<ResultSet> rs;
 
+	private String d_email = "haha";
+	
+	
+	
+	public void setEmail(String em) {
+		this.d_email = em;
+		
+	}
+	
+	public String getEmail() {
+		return this.d_email;
+	}
+	
+	
+	
 	public BookAppointment() {
+		initialize();
+	}
+	
+	public BookAppointment (String email) {
+		setEmail(email);
 		initialize();
 	}
 	
@@ -42,6 +62,8 @@ public class BookAppointment extends JFrame {
 
 	private void initialize() {
 
+		
+		System.out.println(getEmail());
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.control);
