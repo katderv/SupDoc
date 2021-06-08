@@ -75,7 +75,7 @@ public class doctor_menu {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							NotificationList window1 = new NotificationList();
+							NotificationGUI window1 = new NotificationGUI();
 							window1.frame.setVisible(true);
 						
 						} catch (Exception e) {

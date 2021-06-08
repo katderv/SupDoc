@@ -22,14 +22,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 
-public class NotificationList extends JFrame {
+public class NotificationGUI extends JFrame {
 
 	public JFrame frame;
 	private JScrollPane scrollPane;
 	public static Connection myConn;
 	public String information;
 	
-	public NotificationList() {
+	public NotificationGUI() {
 		initialize();
 	}
 
