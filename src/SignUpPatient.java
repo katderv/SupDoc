@@ -11,8 +11,18 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,8 +40,12 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+
 
 public class SignUpPatient {
 
@@ -43,6 +58,17 @@ public class SignUpPatient {
 	private JTextField textField_4;
 	private JButton btnNewButton_1;
 	private JTextField textField_5;
+	
+	// Image Path
+	private String path=null;
+	
+	public void setPath(String input) {
+		this.path=input;
+	}
+	public String getPath() {
+		return this.path;
+	}
+	// End Image Path
 
 	/**
 	 * Create the application.
@@ -55,6 +81,8 @@ public class SignUpPatient {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 280, 484);
@@ -83,6 +111,30 @@ public class SignUpPatient {
 		
 		
 		JButton btnNewButton = new JButton("upload");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
+				chooser.addChoosableFileFilter(filter);
+				int result=chooser.showOpenDialog(btnNewButton);
+				if(result==JFileChooser.APPROVE_OPTION) {
+					File f = chooser.getSelectedFile();
+					String filename= f.getAbsolutePath();
+					ImageIcon icon= new ImageIcon(filename);
+					Image image= icon.getImage().getScaledInstance(lblNewLabel_2.getWidth(), lblNewLabel_2.getHeight(), Image.SCALE_SMOOTH);
+					icon = new ImageIcon(image);
+					lblNewLabel_2.setIcon(icon);
+					setPath(filename);
+					
+					
+				}
+				else if (result==JFileChooser.CANCEL_OPTION) {
+					System.out.println("No File Choosen");
+				}
+				
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(SystemColor.textInactiveText);
@@ -290,14 +342,17 @@ public class SignUpPatient {
 		dateChooser.setBounds(38, 294, 184, 19);
 		frame.getContentPane().add(dateChooser);
 		
+				
 
 		btnNewButton_1 = new JButton("\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField.getText().isEmpty()|| textField_1.getText().isEmpty() || passwordField.getText().isEmpty()|| textField_4.getText().isEmpty() ||textField_5.getText().isEmpty()|| ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() ) {					
+				if(textField.getText().isEmpty()|| textField_1.getText().isEmpty() || passwordField.getText().isEmpty()|| textField_4.getText().isEmpty() ||textField_5.getText().isEmpty()|| ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() ) { //|| getPath()==null 				
 					JOptionPane.showMessageDialog(frame,"Fill in all the fields");
 					return;
-				}				
+				}
+								
+				//Date of Birth
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
 				String sel_dob=sdf.format(dateChooser.getDate()); //get date of birth
 				boolean check_dob=false;
@@ -308,7 +363,7 @@ public class SignUpPatient {
 					JOptionPane.showMessageDialog(frame,"Invalid date of birth");
 				}
 				
-				
+				//Text Fields
 				String name = textField.getText();
 				String surname= textField_1.getText();	
 				String password =passwordField.getText();
@@ -316,7 +371,7 @@ public class SignUpPatient {
 				String city = textField_4.getText();
 				String region = textField_5.getText();
 				
-				
+				//Email
 				String email=null;
 				if(isValid(txtEmail.getText())) {
 					email= txtEmail.getText(); // make sure valid email
@@ -356,11 +411,41 @@ public class SignUpPatient {
 						Connection myConn= DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 						st = myConn.createStatement();
 						String q="INSERT INTO Patient VALUES('"+email+"','"+password+"','"+name+"','"+surname+"','"+sel_dob+"','"+gender+"','"+city+"','"+region+"',NULL,'true');";			
-						st.execute(q);						
-					} catch (SQLException e1) {
+						st.execute(q);		
+						st.close();
+						
+						/*
+						PreparedStatement ps = myConn.prepareStatement("UPDATE Patient SET profPhoto = ? WHERE email = ?");
+						//Image		
+						//String p=getPath();
+						//p=p.replace("\\", "\\\\");
+						//System.out.println(p);
+						//InputStream is = new FileInputStream(new File(getPath()));	
+						//System.out.println(email);
+						BufferedImage image;
+						try {
+							image = ImageIO.read(new File(getPath()));
+							 //convert image to byte[]
+			                ByteArrayOutputStream output = new ByteArrayOutputStream();
+			                ImageIO.write(image , "jpg" , output);
+			                byte[] img = output.toByteArray();
+			                Blob blob = new SerialBlob(img);
+			                ps.setBlob(1, blob);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}               
+						
+						//ps.setBlob(1,is);
+						ps.setString(2, email);
+						ps.executeUpdate();
+						*/						
+						
+					}catch( SQLException e1){
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}				
+					//JOptionPane.showMessageDialog(frame,"Sign up was successfull.");
 					
 					//Going to patient menu
 					login.email=email;
