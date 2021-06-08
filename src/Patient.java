@@ -61,7 +61,7 @@ public class Patient extends User{
 
 	
 	
-	public ArrayList<ArrayList<String>> getNearByDoctors(){
+	public static ArrayList<ArrayList<String>> getNearByDoctors(){
 		//needs to build DB
 				ArrayList<ArrayList<String>> nearDocs = new ArrayList<ArrayList<String>>();
 				java.sql.Statement Stmt;
