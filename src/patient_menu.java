@@ -127,7 +127,7 @@ public class patient_menu {
 						try {
 							transition_screen window4 = new transition_screen();
 							window4.frame.setVisible(true);
-							//frame_patient_menu.dispose();
+							frame_patient_menu.dispose();
 							
 						
 						} catch (Exception e) {

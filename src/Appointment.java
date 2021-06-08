@@ -30,12 +30,28 @@ public class Appointment extends JFrame {
 	Doctor doc;
 	Patient patient;
 	int duration = 0;
+	private String d_email = "haha";
+	
+	
+	
+	public void setEmail(String em) {
+		this.d_email = em;
+		
+	}
+	
+	public String getEmail() {
+		return this.d_email;
+	}
 	
 	
 	public static Connection myConn;
 	JFrame frame = new JFrame();
 	private static ArrayList<ResultSet> rs;
 	
+	public Appointment (String email) {
+		setEmail(email);
+		initialize();
+	}
 	
 	public Appointment () {
 		initialize();
@@ -126,6 +142,8 @@ public class Appointment extends JFrame {
 
 	private void initialize() {
 
+		
+		System.out.println(getEmail());
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.control);
