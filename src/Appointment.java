@@ -30,11 +30,27 @@ public class Appointment {
 	Doctor doc;
 	Patient patient;
 	int duration = 0;
+	private String d_email = "haha";
+	
+	
+	
+	public void setEmail(String em) {
+		this.d_email = em;
+		
+	}
+	
+	public String getEmail() {
+		return this.d_email;
+	}
 	
 	
 	public static Connection myConn;
 	private static ArrayList<ResultSet> rs;
 	
+	public Appointment (String email) {
+		setEmail(email);
+		initialize();
+	}
 	
 	public Appointment () {
 	}
