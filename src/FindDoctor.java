@@ -20,23 +20,23 @@ import java.awt.Dimension;
 
 public class FindDoctor {
 
-	private JFrame frame;
+	public JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FindDoctor window = new FindDoctor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					FindDoctor window = new FindDoctor();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -56,7 +56,7 @@ public class FindDoctor {
 		
 		JPanel panel = new JPanel() {
 			public Dimension getPreferredSize() {
-				return (Dimension) null;
+				return new Dimension(700, 700);//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			}
 		};
 		
@@ -64,7 +64,7 @@ public class FindDoctor {
 		ArrayList<ArrayList<String>> nearD = Patient.getNearByDoctors();
 		for(int i=0; i<nearD.size(); i++) {
 			//JButton btn1 = new JButton("<html>Όνομα Ειδοποίησης<br/>Λεπτομέρειες</html>");
-			String docInfo = nearD.get(i).get(1) + " "+ nearD.get(i).get(2) +"\n"+ nearD.get(i).get(3);
+			String docInfo = nearD.get(i).get(1) + " "+ nearD.get(i).get(2) +" "+ nearD.get(i).get(3);
 			JButton btn1 = new JButton(docInfo);
 			btn1.setBackground(SystemColor.control);
 			btn1.setHorizontalAlignment(SwingConstants.LEFT);
