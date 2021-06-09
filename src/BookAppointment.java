@@ -5,8 +5,12 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -18,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import com.toedter.calendar.JDateChooser;
 
 public class BookAppointment extends JFrame {
 
@@ -27,8 +32,17 @@ public class BookAppointment extends JFrame {
 
 	private String d_email = "haha";
 	
+	private String sel_date;
+	
+	ArrayList<Integer> booked_hours;
+	
+	//Setter for selected date
+	public void setSelDate(String d) {
+		this.sel_date = d;
+	}
 	
 	
+	// Setter for doctor email
 	public void setEmail(String em) {
 		this.d_email = em;
 		
@@ -48,7 +62,7 @@ public class BookAppointment extends JFrame {
 		setEmail(email);
 		initialize();
 	}
-	
+	/*
 	public static void main(String[] args) {
 		try {
 			BookAppointment window = new BookAppointment();
@@ -58,10 +72,11 @@ public class BookAppointment extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
+	*/
 
 	private void initialize() {
-
+		
+		Appointment ap = new Appointment(); // Create empty Appointment
 		
 		System.out.println(getEmail());
 		frame = new JFrame();
@@ -88,14 +103,14 @@ public class BookAppointment extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(img));
 		
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>Ημ/νια</html>");
+		JLabel lblNewLabel_1 = new JLabel("<html>\u0397\u03BC/\u03BD\u03AF\u03B1</html>");
 		lblNewLabel_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(20, 270, 91, 20);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		
+		/* Date - old version
 		JTextField textField = new JTextField();
 		textField.setForeground(SystemColor.textInactiveText);
 		textField.setText("15/03/2020");
@@ -106,29 +121,93 @@ public class BookAppointment extends JFrame {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		*/
+		
+		//initilize timeSlots
+		ArrayList<Integer> timeSlots = new ArrayList<Integer>();
+		for(int i=9;i<21;i++) {
+			timeSlots.add(i);			
+		}
+		
+		// Choose Date
+
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(120, 271, 92, 19);
+		frame.getContentPane().add(dateChooser);
+		
+		// ComboBox Hours
+		JComboBox cb = new JComboBox();
+		cb.setBounds(121, 310, 91, 25);
+		cb.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		frame.getContentPane().add(cb);		
+		((JLabel)cb.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cb.addActionListener(new ActionListener() {//add Actionlistener to listen for change
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String s = (String)cb.getSelectedItem();//get the selected item
+		        System.out.println("s: "+s);
+		        if(s!=null) {
+		        	String [] s2= s.split(":");
+			        String h;
+			        if(s2[0].toString().equals("9")) {
+			        	h= "09:00:00";
+			        }
+			        else {
+			        	h= s2[0].toString()+":00:00";
+			        }
+			        ap.setHour(h);
+		        }		        
+		    }
+		});
+		
+		
+		
+		//Action click ChooseDate
+		dateChooser.getDateEditor().addPropertyChangeListener(
+		    new PropertyChangeListener() {		    	
+		        @Override
+		        public void propertyChange(PropertyChangeEvent e) {
+		            //action
+		        	if(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()==false) {
+		        		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
+						String sel_date=sdf.format(dateChooser.getDate());
+						ap.setDate(sel_date); // Set Date for Appointment
+						//System.out.println(ap.getDate());		
+						
+						booked_hours = Appointment.getHours(getEmail(), sel_date);
+						//System.out.println("bh: "+booked_hours);
+						timeSlots.removeAll(booked_hours);
+						//System.out.println("After remove"+timeSlots);						
+						
+						cb.removeAllItems();
+						for(int i=0; i<timeSlots.size();i++) {
+							cb.addItem(timeSlots.get(i)+":00");			
+						}
+						//clear & initialization timeSlots
+						timeSlots.clear();
+						for(int i=9;i<21;i++) {
+							timeSlots.add(i);			
+						}
+		    		}
+					
+		        }
+		    });	
+
+			
 
 		///////////////////////
 		
-		JLabel lblNewLabel_2 = new JLabel("<html>Ώρα</html>");
+		JLabel lblNewLabel_2 = new JLabel("<html>\u038F\u03C1\u03B1</html>");
 		lblNewLabel_2.setForeground(Color.DARK_GRAY);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(20, 310, 91, 20);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		JComboBox cb = new JComboBox();
-		cb.setBounds(121, 310, 91, 25);
-		cb.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		frame.getContentPane().add(cb);
-		cb.addItem("9:00");
-		cb.addItem("10:00");
-		cb.addItem("11:00");
-		cb.addItem("12:00");
-		cb.addItem("13:00");
-		((JLabel)cb.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		
 		///////////////////////
 		
-		JLabel lblNewLabel_3 = new JLabel("<html>Λόγος<br/> Επίσκεψης</html>");
+		JLabel lblNewLabel_3 = new JLabel("<html>\u039B\u03CC\u03B3\u03BF\u03C2<br/>\u0395\u03C0\u03AF\u03C3\u03BA\u03B5\u03C8\u03B7\u03C2</html>");
 		lblNewLabel_3.setForeground(Color.DARK_GRAY);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setBounds(20, 350, 91, 35);
@@ -139,15 +218,20 @@ public class BookAppointment extends JFrame {
 		cb1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cb1.setBounds(121, 360, 91, 25);
 		frame.getContentPane().add(cb1);
+		cb1.addItem("Non-disclosed");
 		cb1.addItem("Check Up");
+		cb1.addItem("Emergency");
 		cb1.addItem("None");
 		///////////////////////
 		
-		JButton btnNewButton_1 = new JButton("Κλείσιμο Ραντεβού");
+		JButton btnNewButton_1 = new JButton("\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF \u03A1\u03B1\u03BD\u03C4\u03B5\u03B2\u03BF\u03CD");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
-		btnNewButton_1.setBounds(60, 420, 120, 20);
+		btnNewButton_1.setBounds(60, 411, 120, 29);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		
 		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -156,7 +240,7 @@ public class BookAppointment extends JFrame {
 					public void run() {
 						try {
 							// doc patient reasonO duration hoursO daysO id
-							String day = textField.getText();
+							//String day = textField.getText();
 							String hour = (String) cb.getSelectedItem();
 							String reason = (String) cb1.getSelectedItem();
 

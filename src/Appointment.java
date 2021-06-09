@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -63,35 +64,39 @@ public class Appointment {
 		return rs;
 	}
 	
+	/*
 	public void setDate (LocalDate ld) {
 		this.day = ld;
 	}
+	*/
 	
-	public ArrayList<ResultSet> getHour () {
-		
+	public static ArrayList<Integer> getHours (String d_email, String sel_date ) {
+		ArrayList<Integer> rs= new ArrayList<Integer>();
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement Stmt = myConn.createStatement();
 			
-			ResultSet myRs1 = Stmt.executeQuery("select hours from Appointment inner join Patient on Patient.email = Appointment.patient" );
-		
-			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
-			
+			ResultSet myRs1 = Stmt.executeQuery("SELECT hours FROM Appointment WHERE doc ='"+d_email+"' AND days = '"+sel_date+"'; ");
+
 			while (myRs1.next()) {
 				//display to test
-				System.out.println("Hour of Appointment: " + myRs1.getString("hours"));
-				rs.add(myRs1);
+				rs.add(myRs1.getInt("hours"));
+				System.out.println("Hour of Appointment: " + myRs1.getInt("hours"));
+				
 			}
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return rs;
+		
 	}
 	
-	public void setHour (LocalTime lt) {
-			this.hour = lt;
+	public void setHour (String lt) {			
+		this.hour = LocalTime.parse(lt);
+		//System.out.println(this.hour);
+		//System.out.println("hour: "+this.hour.getHour());
 	}
 	
 	public ArrayList<ResultSet> getReason () {
@@ -120,6 +125,14 @@ public class Appointment {
 	
 	public void setReason (String st) {
 		this.reason = st;
+	}
+	
+	public void setDate(String day) {
+		this.day=LocalDate.parse(day);
+	}
+	
+	public LocalDate getDate() {
+		return this.day;
 	}
 
 
