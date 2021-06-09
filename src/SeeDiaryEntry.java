@@ -75,7 +75,7 @@ public class SeeDiaryEntry {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				patient_menu.diar.getDiaryEntries().remove(DiaryMain.index+1);
+				patient_menu.diar.getDiaryEntries().remove(DiaryMain.index);
 				DiaryMain window = new DiaryMain();
 				window.frame.setVisible(true);
 				frame.dispose();
