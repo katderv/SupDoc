@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 public class DiaryMain {
 
 	public JFrame frame;
-	public static  double height;
+	public static  int index;
 
 	
 	/**
@@ -73,7 +73,7 @@ public class DiaryMain {
 	
 
 		 for(int i=0; i<patient_menu.diar.getDiaryEntries().size(); i++) {
-			JButton btnNewButton = new JButton(patient_menu.diar.getDiaryEntries().get(i).getTitle());
+			JButton btnNewButton = new JButton((i+1)+". "+patient_menu.diar.getDiaryEntries().get(i).getTitle());
 			btnNewButton.setBackground(SystemColor.control);
 			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 			btnNewButton.setForeground(SystemColor.textInactiveText);
@@ -83,9 +83,9 @@ public class DiaryMain {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {		
-								height = btnNewButton.getHeight();
-								System.out.println(height);
-								height = (height-37)/37;
+								String b_text = btnNewButton.getText();
+								String[] dem = b_text.split("\\.");
+								index=Integer.parseInt(dem[0])-1;
 								
 								SeeDiaryEntry window = new SeeDiaryEntry();
 								window.frame.setVisible(true);
