@@ -98,7 +98,11 @@ public class Appointment {
 		//System.out.println(this.hour);
 		//System.out.println("hour: "+this.hour.getHour());
 	}
+	public int getHour () {			
+		return this.hour.getHour();
+	}
 	
+	/* ???????????????
 	public ArrayList<ResultSet> getReason () {
 		
 		try {
@@ -122,9 +126,13 @@ public class Appointment {
 		
 		return rs;
 	}
+	*/
 	
 	public void setReason (String st) {
-		this.reason = st;
+		this.reason = st;	
+	}
+	public String getReason() {
+		return this.reason;	
 	}
 	
 	public void setDate(String day) {

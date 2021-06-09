@@ -8,16 +8,21 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -133,6 +138,7 @@ public class BookAppointment extends JFrame {
 
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(120, 271, 92, 19);
+		dateChooser.getJCalendar().setMinSelectableDate(new Date());
 		frame.getContentPane().add(dateChooser);
 		
 		// ComboBox Hours
@@ -145,7 +151,6 @@ public class BookAppointment extends JFrame {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        String s = (String)cb.getSelectedItem();//get the selected item
-		        System.out.println("s: "+s);
 		        if(s!=null) {
 		        	String [] s2= s.split(":");
 			        String h;
@@ -171,12 +176,16 @@ public class BookAppointment extends JFrame {
 		        	if(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()==false) {
 		        		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
 						String sel_date=sdf.format(dateChooser.getDate());
+						
+						System.out.println("IS VALID");
 						ap.setDate(sel_date); // Set Date for Appointment
 						//System.out.println(ap.getDate());		
 						
 						booked_hours = Appointment.getHours(getEmail(), sel_date);
 						//System.out.println("bh: "+booked_hours);
 						timeSlots.removeAll(booked_hours);
+						ArrayList<Integer >previous_hours=isValidHour(LocalDate.parse(sel_date));
+						timeSlots.removeAll(previous_hours);
 						//System.out.println("After remove"+timeSlots);						
 						
 						cb.removeAllItems();
@@ -187,7 +196,9 @@ public class BookAppointment extends JFrame {
 						timeSlots.clear();
 						for(int i=9;i<21;i++) {
 							timeSlots.add(i);			
-						}
+						}							
+						
+						
 		    		}
 					
 		        }
@@ -222,6 +233,22 @@ public class BookAppointment extends JFrame {
 		cb1.addItem("Check Up");
 		cb1.addItem("Emergency");
 		cb1.addItem("None");
+		// ComboBox Rason
+		ap.setReason((String)cb1.getSelectedItem());/// <-
+		cb1.addActionListener(new ActionListener() {//add Actionlistener to listen for change
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String r = (String)cb1.getSelectedItem();//get the selected item		        
+		        if(r!=null) {
+			        ap.setReason(r);
+		        }	
+		        System.out.println("r: "+r);
+		    }
+		});
+		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		
 		///////////////////////
 		
 		JButton btnNewButton_1 = new JButton("\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF \u03A1\u03B1\u03BD\u03C4\u03B5\u03B2\u03BF\u03CD");
@@ -229,15 +256,12 @@ public class BookAppointment extends JFrame {
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
 		btnNewButton_1.setBounds(60, 411, 120, 29);
-		frame.getContentPane().add(btnNewButton_1);
-		
-		
-		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-		
+		frame.getContentPane().add(btnNewButton_1);		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
+						/*
 						try {
 							// doc patient reasonO duration hoursO daysO id
 							//String day = textField.getText();
@@ -248,15 +272,42 @@ public class BookAppointment extends JFrame {
 							//java.sql.Statement Stmt = myConn.createStatement();
 							
 							//ResultSet myRs1 = Stmt.executeQuery("insert into Appointment(doc,patient,reason,duration,hours,days) values ('kate@email.com','johnny@email.com', '" +reason+ "',	20 , '" +hour+"', '" +day+"'	");
-							
-							
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+						*/
+						
+						System.out.println("Book Ap: Email_p: "+login.email+" Email_D: "+getEmail()+" Date: "+ap.getDate()+" Hour: "+ap.getHour()+" Reason: "+ap.getReason());
+						try {
+							myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+							java.sql.Statement Stmt = myConn.createStatement();
+							
+							Stmt.execute("INSERT INTO appointment(doc, patient, reason, duration, hours, days) VALUES ('"+getEmail()+"','"+login.email+"','"+ap.getReason()+"', 60,"+ap.getHour()+", '"+ap.getDate()+"');");
+
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
 					}
 				});
 			}
 		});
 		
 	}
+	
+	public static ArrayList<Integer> isValidHour(LocalDate day){ // checking if date of appointment is valid
+	    LocalTime timenow=LocalTime.now();
+	    ArrayList<Integer> temp = new ArrayList<Integer>();
+	    if(day.compareTo(LocalDate.now())==0) {
+	    	for(int i=9;i<21;i++) {
+				if(timenow.getHour()>=i)
+					temp.add(i);					
+			}
+	    }	
+		return temp;
+	}
+	
+	
 }
