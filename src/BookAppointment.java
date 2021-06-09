@@ -303,7 +303,14 @@ public class BookAppointment extends JFrame {
 							
 							rs.close();
 							Stmt3.close();
-					        
+							
+							java.sql.Statement Stmt4 = login.myConn.createStatement(); 
+							ResultSet c = Stmt4.executeQuery("SELECT COUNT(id) FROM Appointment WHERE doc = '"+getEmail()+"' AND patient = '"+login.email+"' ");										
+					        if (Integer.parseInt(c.getString("COUNT(id)")) >= 3) {
+					        	Doctor.addRegular(getEmail());
+					        }
+					        c.close();
+							Stmt4.close();
 					        // changing screens to patient menu
 					        patient_menu window = new patient_menu();
 							window.frame_patient_menu.setVisible(true);
