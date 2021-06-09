@@ -84,7 +84,7 @@ public class BookAppointment extends JFrame {
 		
 		Appointment ap = new Appointment(); // Create empty Appointment
 		
-		System.out.println(getEmail());
+		//System.out.println(getEmail());
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.control);
