@@ -23,10 +23,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-public class Appointment {
+public class Appointment extends Event{
 
-	private LocalDate day = LocalDate.now();
-	private LocalTime hour = LocalTime.now();
+	//private LocalDate day = LocalDate.now();
+	//private LocalTime hour = LocalTime.now();
 	private String reason = "";
 	Doctor doc;
 	Patient patient;
@@ -39,6 +39,7 @@ public class Appointment {
 
 	
 	public Appointment () {
+		super();
 	}
 	
 	public ArrayList<ResultSet> getDay () {
@@ -93,14 +94,7 @@ public class Appointment {
 		
 	}
 	
-	public void setHour (String lt) {			
-		this.hour = LocalTime.parse(lt);
-		//System.out.println(this.hour);
-		//System.out.println("hour: "+this.hour.getHour());
-	}
-	public int getHour () {			
-		return this.hour.getHour();
-	}
+	
 	
 	/* ???????????????
 	public ArrayList<ResultSet> getReason () {
@@ -135,13 +129,7 @@ public class Appointment {
 		return this.reason;	
 	}
 	
-	public void setDate(String day) {
-		this.day=LocalDate.parse(day);
-	}
 	
-	public LocalDate getDate() {
-		return this.day;
-	}
 
 
 }

@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -280,10 +281,33 @@ public class BookAppointment extends JFrame {
 						
 						System.out.println("Book Ap: Email_p: "+login.email+" Email_D: "+getEmail()+" Date: "+ap.getDate()+" Hour: "+ap.getHour()+" Reason: "+ap.getReason());
 						try {
-							myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
-							java.sql.Statement Stmt = myConn.createStatement();
+							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+							java.sql.Statement Stmt = login.myConn.createStatement();
 							
-							Stmt.execute("INSERT INTO appointment(doc, patient, reason, duration, hours, days) VALUES ('"+getEmail()+"','"+login.email+"','"+ap.getReason()+"', 60,"+ap.getHour()+", '"+ap.getDate()+"');");
+							//insert Appointment into DB
+							Stmt.execute("INSERT INTO Appointment(doc, patient, reason, duration, hours, days) VALUES ('"+getEmail()+"','"+login.email+"','"+ap.getReason()+"', 60,"+ap.getHour()+", '"+ap.getDate()+"');");
+							Stmt.close();
+							
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+							java.sql.Statement Stmt2 = login.myConn.createStatement();							
+							ResultSet rs = Stmt2.executeQuery("SELECT nam, surname FROM Doctor WHERE email='"+getEmail()+"'; ");										
+					        JOptionPane.showMessageDialog(frame,"Appointment booked with Dr. "+rs.getString("nam")+" "+rs.getString("surname")+" on "+formatter.format(ap.getDate())+" at "+ap.getHour()+":00 .");
+					        
+					        //insert Event into DB
+					        java.sql.Statement Stmt3 = login.myConn.createStatement(); 
+							String q="INSERT INTO Event_s VALUES('Appointment with "+rs.getString("nam")+" "+rs.getString("surname")+"','"+ap.getDate()+"', '"+ap.getHour()+":00:00', NULL );";			
+							Stmt3.execute(q);
+							
+							//insert Notification into DB
+							ap.addReminder(rs.getString("nam")+" "+rs.getString("surname"));
+							
+							rs.close();
+							Stmt3.close();
+					        
+					        // changing screens to patient menu
+					        patient_menu window = new patient_menu();
+							window.frame_patient_menu.setVisible(true);
+							frame.dispose();
 
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
