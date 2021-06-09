@@ -22,14 +22,15 @@ public class Doctor extends User{
 		return name;
 	}
 	
-	public void addRegular() {
+	public static void addRegular(String d_email) {
 		//will be called in bookAppointment() if total num of appointments between
-		//doctor A and patient B is equal or more than 3
-		java.sql.Statement Stmt2;
+		//doctor A and patient B is equal to or more than 3
 		
+		
+		java.sql.Statement Stmt2;
 		try {
 			Stmt2 = login.myConn.createStatement();
-			String ins ="INSERT INTO isRegularOf (pat_email, doc_email) VALUES ('"+"patient email"+ "', '"+ "doctor email" + "');";
+			String ins ="INSERT INTO isRegularOf (pat_email, doc_email) VALUES ('"+login.email+ "', '"+ d_email + "');";
 
 			Stmt2.execute(ins);
 			
