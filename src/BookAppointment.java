@@ -68,17 +68,7 @@ public class BookAppointment extends JFrame {
 		setEmail(email);
 		initialize();
 	}
-	/*
-	public static void main(String[] args) {
-		try {
-			BookAppointment window = new BookAppointment();
-			window.frame.setVisible(true);
-			//window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+
 
 	private void initialize() {
 		

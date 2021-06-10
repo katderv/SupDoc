@@ -94,42 +94,12 @@ public class Appointment extends Event{
 		
 	}
 	
-	
-	
-	/* ???????????????
-	public ArrayList<ResultSet> getReason () {
-		
-		try {
-			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
-			java.sql.Statement Stmt = myConn.createStatement();
-			
-			ResultSet myRs1 = Stmt.executeQuery("select reason from Appointment inner join Patient on Patient.email = Appointment.patient");
-		
-			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
-			
-			while (myRs1.next()) {
-				//display to test
-				System.out.println("Reason of Appointment: " + myRs1.getString("reason"));
-				rs.add(myRs1);
-			}
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return rs;
-	}
-	*/
-	
 	public void setReason (String st) {
 		this.reason = st;	
 	}
+	
 	public String getReason() {
 		return this.reason;	
 	}
 	
-	
-
-
 }
