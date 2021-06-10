@@ -68,23 +68,13 @@ public class BookAppointment extends JFrame {
 		setEmail(email);
 		initialize();
 	}
-	/*
-	public static void main(String[] args) {
-		try {
-			BookAppointment window = new BookAppointment();
-			window.frame.setVisible(true);
-			//window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+
 
 	private void initialize() {
 		
 		Appointment ap = new Appointment(); // Create empty Appointment
 		
-		System.out.println(getEmail());
+		//System.out.println(getEmail());
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(SystemColor.control);
@@ -303,7 +293,14 @@ public class BookAppointment extends JFrame {
 							
 							rs.close();
 							Stmt3.close();
-					        
+							
+							java.sql.Statement Stmt4 = login.myConn.createStatement(); 
+							ResultSet c = Stmt4.executeQuery("SELECT COUNT(id) FROM Appointment WHERE doc = '"+getEmail()+"' AND patient = '"+login.email+"' ");										
+					        if (Integer.parseInt(c.getString("COUNT(id)")) >= 3) {
+					        	Doctor.addRegular(getEmail());
+					        }
+					        c.close();
+							Stmt4.close();
 					        // changing screens to patient menu
 					        patient_menu window = new patient_menu();
 							window.frame_patient_menu.setVisible(true);

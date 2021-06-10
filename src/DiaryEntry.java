@@ -47,4 +47,11 @@ public class DiaryEntry {
 		    return important;
 		  }
 	 
+	 public LocalTime getTime() {
+		    return timeOfEntry;
+		  }
+	 
+	 public LocalDate getDate() {
+		    return date;
+		  }
 }
