@@ -97,10 +97,10 @@ public class SignUpDoctor {
 		lblNewLabel_2.setIcon(new ImageIcon(img2));
 		
 		
-		JButton btnNewButton = new JButton("upload");
+		JButton btnNewButton = new JButton("Ανέβασμα");
 		btnNewButton.setBounds(153, 137, 65, 23);
 		panel.add(btnNewButton);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 6));
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(SystemColor.textInactiveText);
 		
@@ -250,7 +250,7 @@ public class SignUpDoctor {
 		panel.add(dateChooser);
 		
 		genderBox = new JComboBox();
-		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Female", "Male", "Other"}));
+		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Γυναίκα", "’νδρας", "’λλο"}));
 		genderBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		genderBox.setBounds(34, 324, 184, 21);
 		panel.add(genderBox);
@@ -472,11 +472,11 @@ public class SignUpDoctor {
 		lblNewLabel_6.setForeground(Color.DARK_GRAY);
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 10));
 		
-		JButton btnNewButton_2 = new JButton("upload");
+		JButton btnNewButton_2 = new JButton("Ανέβασμα");
 		btnNewButton_2.setBounds(153, 686, 88, 23);
 		panel.add(btnNewButton_2);
 		btnNewButton_2.setForeground(Color.WHITE);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 8)); 
 		btnNewButton_2.setBackground(SystemColor.textInactiveText);
 		
 		textField_11 = new JTextField();
