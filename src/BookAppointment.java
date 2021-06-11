@@ -268,11 +268,11 @@ public class BookAppointment extends JFrame {
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 							java.sql.Statement Stmt2 = login.myConn.createStatement();							
 							ResultSet rs = Stmt2.executeQuery("SELECT nam, surname FROM Doctor WHERE email='"+getEmail()+"'; ");										
-					        JOptionPane.showMessageDialog(frame,"Appointment booked with Dr. "+rs.getString("nam")+" "+rs.getString("surname")+" on "+formatter.format(ap.getDate())+" at "+ap.getHour()+":00 .");
+					        JOptionPane.showMessageDialog(frame,"Ραντεβού με  Dr. "+rs.getString("nam")+" "+rs.getString("surname")+" ημέρα "+formatter.format(ap.getDate())+" στις "+ap.getHour()+":00 .");
 					        
 					        //insert Event into DB
 					        java.sql.Statement Stmt3 = login.myConn.createStatement(); 
-							String q="INSERT INTO Event_s VALUES('Appointment with "+rs.getString("nam")+" "+rs.getString("surname")+"','"+ap.getDate()+"', '"+ap.getHour()+":00:00', NULL );";			
+							String q="INSERT INTO Event_s VALUES('Ραντεβού με "+rs.getString("nam")+" "+rs.getString("surname")+"','"+ap.getDate()+"', '"+ap.getHour()+":00:00', NULL );";			
 							Stmt3.execute(q);
 							
 							//insert Notification into DB

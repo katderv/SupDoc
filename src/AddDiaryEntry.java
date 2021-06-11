@@ -71,7 +71,9 @@ public class AddDiaryEntry {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+				patient_menu window = new patient_menu();
+				window.frame_patient_menu.setVisible(true);
+				frame.dispose();
 			}
 		});
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
