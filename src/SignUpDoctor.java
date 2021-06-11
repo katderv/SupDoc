@@ -6,21 +6,32 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SignUpDoctor {
 
@@ -45,9 +56,21 @@ public class SignUpDoctor {
 	private JLabel lblNewLabel_6;
 	private JPanel panel;
 	private JScrollPane scrollPane_1;
-	private JTextField textField_11;
 	private JComboBox genderBox;
 
+	private boolean passchecker; // check if password is strong
+	
+	// Image Path
+	private String path=null;
+	
+	public void setPath(String input) {
+		this.path=input;
+	}
+	public String getPath() {
+		return this.path;
+	}
+	// End Image Path
+	
 	/**
 	 * Create the application.
 	 */
@@ -90,7 +113,7 @@ public class SignUpDoctor {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(153, 89, 65, 43);
+		lblNewLabel_2.setBounds(153, 77, 80, 55);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		Image img2 = new ImageIcon(this.getClass().getResource("/photo.png")).getImage();
@@ -98,9 +121,33 @@ public class SignUpDoctor {
 		
 		
 		JButton btnNewButton = new JButton("Ανέβασμα");
-		btnNewButton.setBounds(153, 137, 65, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
+				chooser.addChoosableFileFilter(filter);
+				int result=chooser.showOpenDialog(btnNewButton);
+				if(result==JFileChooser.APPROVE_OPTION) {
+					File f = chooser.getSelectedFile();
+					String filename= f.getAbsolutePath();
+					ImageIcon icon= new ImageIcon(filename);
+					Image image= icon.getImage().getScaledInstance(lblNewLabel_2.getWidth(), lblNewLabel_2.getHeight(), Image.SCALE_SMOOTH);
+					icon = new ImageIcon(image);
+					lblNewLabel_2.setIcon(icon);
+					setPath(filename);
+					
+					
+				}
+				else if (result==JFileChooser.CANCEL_OPTION) {
+					System.out.println("Δεν έχει επιλεχθεί αρχείο.");
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(153, 137, 80, 23);
 		panel.add(btnNewButton);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 6));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(SystemColor.textInactiveText);
 		
@@ -213,6 +260,12 @@ public class SignUpDoctor {
                 if(passwordField.getText().isEmpty()) {
                 	passwordField.setText("password");
                 }
+                else { // not Empty Password
+                	passchecker= SignUpPatient.strongPassChecker(passwordField.getText());
+                	if(passchecker==false) {
+                		JOptionPane.showMessageDialog(frame_SignUpDoctor,"Ασθενής κωδικός.\nΠρέπει να περιέχει 1 γράμμα, 1 νούμερα και να έχει τουλάχιστον 8 χαρακτήρες.");
+                	}
+                }
             }
         });
 		
@@ -281,22 +334,16 @@ public class SignUpDoctor {
         });
 		textField_4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
 		
-		btnNewButton_1 = new JButton("\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE");
-		btnNewButton_1.setBounds(73, 739, 104, 27);
-		panel.add(btnNewButton_1);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.setForeground(SystemColor.text);
-		btnNewButton_1.setBackground(SystemColor.textInactiveText);
-		
+	
 		JLabel lblNewLabel_3_1 = new JLabel("\u03A3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u0399\u03B1\u03C4\u03C1\u03BF\u03CD");
-		lblNewLabel_3_1.setBounds(34, 416, 184, 27);
+		lblNewLabel_3_1.setBounds(34, 406, 184, 27);
 		panel.add(lblNewLabel_3_1);
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(34, 442, 184, 2);
+		lblNewLabel_4.setBounds(34, 432, 184, 2);
 		panel.add(lblNewLabel_4);
 		Image img3 = new ImageIcon(this.getClass().getResource("/signUpDoc_bar.png")).getImage();
 		lblNewLabel_4.setIcon(new ImageIcon(img3));
@@ -476,40 +523,150 @@ public class SignUpDoctor {
 		btnNewButton_2.setBounds(153, 686, 88, 23);
 		panel.add(btnNewButton_2);
 		btnNewButton_2.setForeground(Color.WHITE);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 8)); 
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10)); 
 		btnNewButton_2.setBackground(SystemColor.textInactiveText);
 		
-		textField_11 = new JTextField();
-		textField_11.setText("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE");
-		textField_11.setForeground(SystemColor.textInactiveText);
-		textField_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_11.setColumns(10);
-		textField_11.setBorder(new MatteBorder(0, 0, 1, 0, (Color) SystemColor.textInactiveText));
-		textField_11.setBackground(SystemColor.menu);
-		textField_11.setBounds(34, 386, 182, 20);
-		panel.add(textField_11);
-		textField_11.addFocusListener(new FocusListener() {
+		btnNewButton_1 = new JButton("\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE"); // Sign Up Button
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField.getText().equals("\u038C\u03BD\u03BF\u03BC\u03B1")|| textField_1.getText().equals("\u0395\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF") || passwordField.getText().equals("password")|| textField_4.getText().equals("\u03A0\u03CC\u03BB\u03B7") || ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() || textField_5.getText().equals("\u0395\u03B9\u03B4\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1") || textField_6.getText().equals("\u0394\u03B9\u03B5\u03CD\u03B8\u03C5\u03BD\u03C3\u03B7") || textField_7.getText().equals("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE") || textField_8.getText().equals("\u03A4.\u039A.") || textField_9.getText().equals("\u03A4\u03B7\u03BB\u03AD\u03C6\u03C9\u03BD\u03BF \u0399\u03B1\u03C4\u03C1\u03B5\u03AF\u03BF\u03C5") || textField_10.getText().equals("\u039A\u03B9\u03BD\u03B7\u03C4\u03CC") ) { //|| getPath()==null 				
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Συμπληρώστε όλα τα πεδία.");
+					return;
+				}
+				passchecker= SignUpPatient.strongPassChecker(passwordField.getText());
+            	if(passchecker==false) {
+            		JOptionPane.showMessageDialog(frame_SignUpDoctor,"Δεν μπορεί να γίνει εγγραφή.\nΣυμπληρώστε σωστά τα πεδία.");
+            		return;
+            	}
+            	
+							
+				//Date of Birth
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
+				String sel_dob=sdf.format(dateChooser.getDate()); //get date of birth
+				if(SignUpPatient.isValidDOB(LocalDate.parse(sel_dob))==false) {
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Μη αποδεκτή ημ/νία γέννησης.");
+					return;
+				}
+				
+				//Text Fields
+				String name = textField.getText();
+				String surname= textField_1.getText();	
+				String password =passwordField.getText();
+				String gender = (String)genderBox.getSelectedItem();
+				String city = textField_4.getText();
+				String specialty = textField_5.getText();
+				String address = textField_6.getText();
+				String region = textField_7.getText();
+				
+				
+				//Email
+				String email=null;
+				if(SignUpPatient.isValid(txtEmail.getText())) {
+					email= txtEmail.getText(); // make sure valid email
+				}
+				else {
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Μη αποδεκτό email.");
+					return;
+				}
+				
+				//Zip Code
+				String zip_code=null;
+            	if(isValidZip(textField_8.getText())==false) { // check zip code
+            		JOptionPane.showMessageDialog(frame_SignUpDoctor,"Δεν μπορεί να γίνει εγγραφή.\nO T.K. δεν είναι έγκυρος.");
+            		return;
+            	}
+            	else {
+            		zip_code=textField_8.getText();
+            	}
+            	
+            	// Work Phone
+            	String work_phone= null;
+				if(SignUpDoctor.isValidPhoneNumber(textField_9.getText())==false) {
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Δεν μπορεί να γίνει εγγραφή.\nΤο Τηλέφωνο Ιατρείου δεν είναι έγκυρο.");
+            		return;
+				}
+				else {
+					work_phone=textField_9.getText();
+				}
+				
+				// Mobile Phone
+				String mobile_phone= null;
+				if(SignUpDoctor.isValidPhoneNumber(textField_10.getText())==false) {
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Δεν μπορεί να γίνει εγγραφή.\nΤο Κινητό δεν είναι έγκυρο.");
+            		return;
+				}
+				else {
+					mobile_phone=textField_10.getText();
+				}
+				
 
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField_11.getText().equals("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE")) {
-                	textField_11.setText("");
-                }
-            }
+				// EVERYTHING IS OKAY AND CHECKED
+				// INSERT ALL INFO INTO DATABASE
+				java.sql.Statement st;
+				
+				try {// insert patient to database						
+					Connection myConn= DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+					st = myConn.createStatement();
+					String q="INSERT INTO Doctor VALUES('"+email+"','"+password+"','"+name+"','"+surname+"','"+sel_dob+"','"+gender+"','"+city+"','"+region+"',NULL,'','"+specialty+"','"+mobile_phone+"','"+work_phone+"','"+address+"','"+zip_code+"');";			
+					st.execute(q);		
+					st.close();					
+					
+				}catch( SQLException e1){
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame_SignUpDoctor,"Ανεπιτυχης εγγραφή.");
+					return;
+				}				
+				JOptionPane.showMessageDialog(frame_SignUpDoctor,"Επιτυχής εγγραφή.");
+				
+				//Going to doctor menu
+				login.email=email;
+				login.name=name;
+				doctor_menu window = new doctor_menu();
+				window.frame.setVisible(true);
+				frame_SignUpDoctor.dispose();
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                if(textField_11.getText().isEmpty()) {
-                	textField_11.setText("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE");
-                }
-            }
-        });
+				
+				
+				
+			}
+		});
+		btnNewButton_1.setBounds(73, 739, 104, 27);
+		panel.add(btnNewButton_1);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1.setForeground(SystemColor.text);
+		btnNewButton_1.setBackground(SystemColor.textInactiveText);
 		
 		
 		
-		
-		
-		
-		
-	}
-}
+	}// End initialize
+	
+	public static boolean isValidZip(String zip){ // checking if zip code is valid
+		if (zip.length() == 5) {  // zip code is 5 digits
+			 for (int i = 0; i < zip.length(); i++) {
+	               if (Character.isDigit(zip.charAt(i))==false) {// checks if it is a digit
+	            	   return false;
+	               }
+			 }
+        	return true; // zip is length==5 and all characters are digits
+		}
+        else 
+        	return false;
+    }
+	
+	public static boolean isValidPhoneNumber(String phone){ // checking if zip code is valid
+		if (phone.length() == 10) {  // phone number is 10 digits
+			 for (int i = 0; i < phone.length(); i++) {
+	               if (Character.isDigit(phone.charAt(i))==false) {// checks if it is a digit
+	            	   return false;
+	               }
+			 }
+        	return true; // phone is length==10 and all characters are digits
+		}
+        else 
+        	return false;
+    }
+	
+	
+	
+}// end SignUpDoctor

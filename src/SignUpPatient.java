@@ -59,6 +59,7 @@ public class SignUpPatient {
 	private JButton btnNewButton_1;
 	private JTextField textField_5;
 	
+	private boolean passchecker; // check if password is strong
 	// Image Path
 	private String path=null;
 	
@@ -104,13 +105,13 @@ public class SignUpPatient {
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(157, 89, 65, 43);
+		lblNewLabel_2.setBounds(157, 77, 80, 55);
 		frame.getContentPane().add(lblNewLabel_2);
 		Image img2 = new ImageIcon(this.getClass().getResource("/photo.png")).getImage();
 		lblNewLabel_2.setIcon(new ImageIcon(img2));
 		
 		
-		JButton btnNewButton = new JButton("Ανέβασε");
+		JButton btnNewButton = new JButton("\u0391\u03BD\u03AD\u03B2\u03B1\u03C3\u03BC\u03B1");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -135,10 +136,10 @@ public class SignUpPatient {
 				
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(SystemColor.textInactiveText);
-		btnNewButton.setBounds(157, 137, 65, 23);
+		btnNewButton.setBounds(157, 137, 80, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("<html>\u03A0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03C4\u03B5<br/>\u03A6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1</html>");
@@ -226,6 +227,7 @@ public class SignUpPatient {
         });
 		txtEmail.setColumns(10);
 		
+		
 		passwordField = new JPasswordField();
 		passwordField.setText("password");
 		passwordField.setForeground(SystemColor.textInactiveText);
@@ -246,6 +248,12 @@ public class SignUpPatient {
             public void focusLost(FocusEvent e) {
                 if(passwordField.getText().isEmpty()) {
                 	passwordField.setText("password");
+                }
+                else { // not Empty Password
+                	passchecker= SignUpPatient.strongPassChecker(passwordField.getText());
+                	if(passchecker==false) {
+                		JOptionPane.showMessageDialog(frame,"Ασθενής κωδικός.\nΠρέπει να περιέχει 1 γράμμα, 1 νούμερα και να έχει τουλάχιστον 8 χαρακτήρες.");
+                	}
                 }
             }
         });
@@ -334,7 +342,7 @@ public class SignUpPatient {
 		
 		JComboBox genderBox = new JComboBox();
 		genderBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Female", "Male", "Other"}));
+		genderBox.setModel(new DefaultComboBoxModel(new String[] {"Γυναίκα", "’νδρας", "’λλο"}));
 		genderBox.setBounds(38, 324, 184, 21);
 		frame.getContentPane().add(genderBox);
 		
@@ -347,20 +355,23 @@ public class SignUpPatient {
 		btnNewButton_1 = new JButton("\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField.getText().isEmpty()|| textField_1.getText().isEmpty() || passwordField.getText().isEmpty()|| textField_4.getText().isEmpty() ||textField_5.getText().isEmpty()|| ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() ) { //|| getPath()==null 				
+				if(textField.getText().equals("\u038C\u03BD\u03BF\u03BC\u03B1")|| textField_1.getText().equals("\u0395\u03C0\u03CE\u03BD\u03C5\u03BC\u03BF") || passwordField.getText().equals("password")|| textField_4.getText().equals("\u03A0\u03CC\u03BB\u03B7") ||textField_5.getText().equals("\u03A0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE")|| ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() ) { //|| getPath()==null 				
 					JOptionPane.showMessageDialog(frame,"Συμπληρώστε όλα τα πεδία.");
 					return;
 				}
+				passchecker= SignUpPatient.strongPassChecker(passwordField.getText());
+            	if(passchecker==false) {
+            		JOptionPane.showMessageDialog(frame,"Δεν μπορεί να γίνει εγγραφή.\nΣυμπληρώστε σωστά τα πεδία.");
+            		return;
+            	}
+				
 								
 				//Date of Birth
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
 				String sel_dob=sdf.format(dateChooser.getDate()); //get date of birth
-				boolean check_dob=false;
-				if(isValidDOB(LocalDate.parse(sel_dob))) {
-					check_dob=true;
-				}
-				else {
+				if(isValidDOB(LocalDate.parse(sel_dob))==false) {
 					JOptionPane.showMessageDialog(frame,"Μη αποδεκτή ημ/νία γέννησης.");
+					return;
 				}
 				
 				//Text Fields
@@ -378,6 +389,7 @@ public class SignUpPatient {
 				}
 				else {
 					JOptionPane.showMessageDialog(frame,"Μη αποδεκτό email.");
+					return;
 				}
 				
 				/* // Date of Birth - Old Version
@@ -403,59 +415,60 @@ public class SignUpPatient {
 		        */	
 				
 				
-				if(email!=null && check_dob==true) {
-					//System.out.println(name+surname+email+password+sel_dob+gender+city+region);
-					java.sql.Statement st;
+				// EVERYTHING IS OKAY AND CHECKED
+				// INSERT ALL INFO INTO DATABASE
+				java.sql.Statement st;
+				
+				try {// insert patient to database						
+					Connection myConn= DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
+					st = myConn.createStatement();
+					String q="INSERT INTO Patient VALUES('"+email+"','"+password+"','"+name+"','"+surname+"','"+sel_dob+"','"+gender+"','"+city+"','"+region+"',NULL,'true');";			
+					st.execute(q);		
+					st.close();
 					
-					try {// insert patient to database						
-						Connection myConn= DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
-						st = myConn.createStatement();
-						String q="INSERT INTO Patient VALUES('"+email+"','"+password+"','"+name+"','"+surname+"','"+sel_dob+"','"+gender+"','"+city+"','"+region+"',NULL,'true');";			
-						st.execute(q);		
-						st.close();
-						
-						/*
-						PreparedStatement ps = myConn.prepareStatement("UPDATE Patient SET profPhoto = ? WHERE email = ?");
-						//Image		
-						//String p=getPath();
-						//p=p.replace("\\", "\\\\");
-						//System.out.println(p);
-						//InputStream is = new FileInputStream(new File(getPath()));	
-						//System.out.println(email);
-						BufferedImage image;
-						try {
-							image = ImageIO.read(new File(getPath()));
-							 //convert image to byte[]
-			                ByteArrayOutputStream output = new ByteArrayOutputStream();
-			                ImageIO.write(image , "jpg" , output);
-			                byte[] img = output.toByteArray();
-			                Blob blob = new SerialBlob(img);
-			                ps.setBlob(1, blob);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}               
-						
-						//ps.setBlob(1,is);
-						ps.setString(2, email);
-						ps.executeUpdate();
-						*/						
-						
-					}catch( SQLException e1){
+					/*
+					PreparedStatement ps = myConn.prepareStatement("UPDATE Patient SET profPhoto = ? WHERE email = ?");
+					//Image		
+					//String p=getPath();
+					//p=p.replace("\\", "\\\\");
+					//System.out.println(p);
+					//InputStream is = new FileInputStream(new File(getPath()));	
+					//System.out.println(email);
+					BufferedImage image;
+					try {
+						image = ImageIO.read(new File(getPath()));
+						 //convert image to byte[]
+		                ByteArrayOutputStream output = new ByteArrayOutputStream();
+		                ImageIO.write(image , "jpg" , output);
+		                byte[] img = output.toByteArray();
+		                Blob blob = new SerialBlob(img);
+		                ps.setBlob(1, blob);
+					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}				
-					//JOptionPane.showMessageDialog(frame,"Sign up was successfull.");
+					}               
 					
-					//Going to patient menu
-					login.email=email;
-					login.name=name;
-					patient_menu window = new patient_menu();
-					window.frame_patient_menu.setVisible(true);
-					frame.dispose();
+					//ps.setBlob(1,is);
+					ps.setString(2, email);
+					ps.executeUpdate();
+					*/						
 					
-										
-				}
+				}catch( SQLException e1){
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame,"Ανεπιτυχης εγγραφή.");
+					return;
+					
+				}				
+				JOptionPane.showMessageDialog(frame,"Επιτυχής εγγραφή.");
+				
+				//Going to patient menu
+				login.email=email;
+				login.name=name;
+				patient_menu window = new patient_menu();
+				window.frame_patient_menu.setVisible(true);
+				frame.dispose();
+			
 					
 					
 			}
@@ -489,4 +502,31 @@ public class SignUpPatient {
         else
         	return false;
     }
+	
+	public static boolean strongPassChecker(String password) { // checks if the password is strong enough
+		 boolean letter = false;
+	     boolean digit = false;
+		 if (password.length() >= 8) {
+           for (int i = 0; i < password.length(); i++) {
+               char x = password.charAt(i);
+               if (Character.isLetter(x)) { // checks if there is a letter
+                   letter = true;
+               }
+               else if (Character.isDigit(x)) {// checks if there is a digit
+                   digit = true;
+               }	                
+               if(letter && digit){ // no need to check further, break the loop
+                   break;
+               }
+           }
+           if (letter && digit) { // STRONG
+               return true;
+           } else {// NOT STRONG
+               return false;
+           }
+       }
+		else{ // DOES NOT HAVE AT LEST 8 CHARACTERS
+           return false;
+       }
+   } // end strongPassChecker
 }
