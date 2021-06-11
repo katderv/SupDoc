@@ -5,7 +5,7 @@ import java.io.File;  // Import the File class
 
 enum Gender {
 	  Γυναίκα,
-	  Άντρας,
+	  Άνδρας,
 	  Άλλο
 	}
 
