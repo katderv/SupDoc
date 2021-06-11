@@ -8,7 +8,7 @@ public class Event {
 	protected LocalDate day;
 	protected LocalTime time;
 	private String title;
-	protected int id;
+	private int id;
 
 	public Event(String day, String time, String title) { // Constructor with all String arguments
 		this.day=LocalDate.parse(day);
@@ -90,27 +90,5 @@ public class Event {
 	public void setTitle(String title) {
 		this.title=title;
 	}
-	
-	/*
-	//Getters
-	public LocalDate getDay() {
-		return this.day;
-	}
-	public LocalTime getTime() {
-		return this.time;
-	}
-	public String getTitle() {
-		return this.title;
-	}
-	//Setters
-	public void setDay(String day) {
-		this.day=LocalDate.parse(day);
-	}	
-	public void setTime(String time) {
-		this.time=LocalTime.parse(time);
-	}	
-	public void setTitle(String title) {
-		this.title=title;
-	}
-	*/
+
 }
