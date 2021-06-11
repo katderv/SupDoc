@@ -8,8 +8,9 @@ public class Event {
 	protected LocalDate day;
 	protected LocalTime time;
 	private String title;
-	private int id;
-
+	//private int id;
+	
+	/*
 	public Event(String day, String time, String title) { // Constructor with all String arguments
 		this.day=LocalDate.parse(day);
 		this.time=LocalTime.parse(time);
@@ -35,6 +36,7 @@ public class Event {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	public Event() { // Constructor with no arguments get current date & time and title is null
 		this.day=LocalDate.now();
