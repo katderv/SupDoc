@@ -172,7 +172,7 @@ public class BookAppointment extends JFrame {
 						ap.setDate(sel_date); // Set Date for Appointment
 						//System.out.println(ap.getDate());		
 						
-						booked_hours = Appointment.getHours(getEmail(), sel_date);
+						booked_hours = Appointment.getHours(getEmail(), sel_date); //getting the hours that the doctor is busy
 						//System.out.println("bh: "+booked_hours);
 						timeSlots.removeAll(booked_hours);
 						ArrayList<Integer >previous_hours=isValidHour(LocalDate.parse(sel_date));
@@ -241,7 +241,7 @@ public class BookAppointment extends JFrame {
 		
 		
 		///////////////////////
-		
+		//Booking Appointments
 		JButton btnNewButton_1 = new JButton("\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF \u03A1\u03B1\u03BD\u03C4\u03B5\u03B2\u03BF\u03CD");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -251,25 +251,8 @@ public class BookAppointment extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						/*
-						try {
-							// doc patient reasonO duration hoursO daysO id
-							//String day = textField.getText();
-							String hour = (String) cb.getSelectedItem();
-							String reason = (String) cb1.getSelectedItem();
-
-							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
-							//java.sql.Statement Stmt = myConn.createStatement();
-							
-							//ResultSet myRs1 = Stmt.executeQuery("insert into Appointment(doc,patient,reason,duration,hours,days) values ('kate@email.com','johnny@email.com', '" +reason+ "',	20 , '" +hour+"', '" +day+"'	");
-
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						*/
-						
-						System.out.println("Book Ap: Email_p: "+login.email+" Email_D: "+getEmail()+" Date: "+ap.getDate()+" Hour: "+ap.getHour()+" Reason: "+ap.getReason());
+					public void run() {				
+						//System.out.println("Book Ap: Email_p: "+login.email+" Email_D: "+getEmail()+" Date: "+ap.getDate()+" Hour: "+ap.getHour()+" Reason: "+ap.getReason());
 						try {
 							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 							java.sql.Statement Stmt = login.myConn.createStatement();
@@ -296,7 +279,7 @@ public class BookAppointment extends JFrame {
 							
 							java.sql.Statement Stmt4 = login.myConn.createStatement(); 
 							ResultSet c = Stmt4.executeQuery("SELECT COUNT(id) FROM Appointment WHERE doc = '"+getEmail()+"' AND patient = '"+login.email+"' ");										
-					        if (Integer.parseInt(c.getString("COUNT(id)")) >= 3) {
+					        if (Integer.parseInt(c.getString("COUNT(id)")) == 3) {
 					        	Doctor.addRegular(getEmail());
 					        }
 					        c.close();

@@ -42,7 +42,7 @@ public class Appointment extends Event{
 		super();
 	}
 	
-	public ArrayList<ResultSet> getDay () {
+	public ArrayList<ResultSet> getDay () { // ?????
 		
 		try {
 			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
@@ -82,7 +82,7 @@ public class Appointment extends Event{
 			while (myRs1.next()) {
 				//display to test
 				rs.add(myRs1.getInt("hours"));
-				System.out.println("Hour of Appointment: " + myRs1.getInt("hours"));
+				//System.out.println("Hour of Appointment: " + myRs1.getInt("hours"));
 				
 			}
 
