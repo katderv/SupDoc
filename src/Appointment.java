@@ -42,28 +42,6 @@ public class Appointment extends Event{
 		super();
 	}
 	
-	public ArrayList<ResultSet> getDay () { // ?????
-		
-		try {
-			myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
-			java.sql.Statement Stmt = myConn.createStatement();
-			
-			ResultSet myRs1 = Stmt.executeQuery("select days from Appointment inner join Patient on Patient.email = Appointment.patient" );
-			
-			ArrayList<ResultSet> rs= new ArrayList<ResultSet>();
-			
-			while (myRs1.next()) {
-				//display to test
-				System.out.println("Day of Appointment: " + myRs1.getString("days"));
-				rs.add(myRs1);
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return rs;
-	}
 	
 	/*
 	public void setDate (LocalDate ld) {

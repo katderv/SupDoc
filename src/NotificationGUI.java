@@ -52,7 +52,7 @@ public class NotificationGUI extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(img2));
 		
 
-		JLabel lbl = new JLabel("Notifications");
+		JLabel lbl = new JLabel("Ειδοποιήσεις");
 		lbl.setForeground(new Color(245, 245, 245));
 		lbl.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);

@@ -110,7 +110,7 @@ public class SignUpPatient {
 		lblNewLabel_2.setIcon(new ImageIcon(img2));
 		
 		
-		JButton btnNewButton = new JButton("upload");
+		JButton btnNewButton = new JButton("Ανέβασε");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -130,7 +130,7 @@ public class SignUpPatient {
 					
 				}
 				else if (result==JFileChooser.CANCEL_OPTION) {
-					System.out.println("No File Choosen");
+					System.out.println("Δεν έχει επιλεχθεί αρχείο.");
 				}
 				
 			}
@@ -348,7 +348,7 @@ public class SignUpPatient {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(textField.getText().isEmpty()|| textField_1.getText().isEmpty() || passwordField.getText().isEmpty()|| textField_4.getText().isEmpty() ||textField_5.getText().isEmpty()|| ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty() ) { //|| getPath()==null 				
-					JOptionPane.showMessageDialog(frame,"Fill in all the fields");
+					JOptionPane.showMessageDialog(frame,"Συμπληρώστε όλα τα πεδία.");
 					return;
 				}
 								
@@ -360,7 +360,7 @@ public class SignUpPatient {
 					check_dob=true;
 				}
 				else {
-					JOptionPane.showMessageDialog(frame,"Invalid date of birth");
+					JOptionPane.showMessageDialog(frame,"Μη αποδεκτή ημ/νία γέννησης.");
 				}
 				
 				//Text Fields
@@ -377,7 +377,7 @@ public class SignUpPatient {
 					email= txtEmail.getText(); // make sure valid email
 				}
 				else {
-					JOptionPane.showMessageDialog(frame,"Invalid email");
+					JOptionPane.showMessageDialog(frame,"Μη αποδεκτό email.");
 				}
 				
 				/* // Date of Birth - Old Version
