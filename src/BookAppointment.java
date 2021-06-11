@@ -306,7 +306,7 @@ public class BookAppointment extends JFrame {
 							
 							java.sql.Statement Stmt4 = login.myConn.createStatement(); 
 							ResultSet c = Stmt4.executeQuery("SELECT COUNT(id) FROM Appointment WHERE doc = '"+getEmail()+"' AND patient = '"+login.email+"' ");										
-					        if (Integer.parseInt(c.getString("COUNT(id)")) >= 3) {
+					        if (Integer.parseInt(c.getString("COUNT(id)")) == 3) {
 					        	Doctor.addRegular(getEmail());
 					        }
 					        c.close();
