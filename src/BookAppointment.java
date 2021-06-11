@@ -254,6 +254,10 @@ public class BookAppointment extends JFrame {
 					public void run() {				
 						//System.out.println("Book Ap: Email_p: "+login.email+" Email_D: "+getEmail()+" Date: "+ap.getDate()+" Hour: "+ap.getHour()+" Reason: "+ap.getReason());
 						try {
+							if(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()==true) {
+								JOptionPane.showMessageDialog(frame,"Fill in all the fields");
+								return;
+							}
 							//myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 							java.sql.Statement Stmt = login.myConn.createStatement();
 							
