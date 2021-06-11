@@ -168,7 +168,7 @@ public class BookAppointment extends JFrame {
 		        		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");				
 						String sel_date=sdf.format(dateChooser.getDate());
 						
-						System.out.println("IS VALID");
+						//System.out.println("IS VALID");
 						ap.setDate(sel_date); // Set Date for Appointment
 						//System.out.println(ap.getDate());		
 						
@@ -233,7 +233,7 @@ public class BookAppointment extends JFrame {
 		        if(r!=null) {
 			        ap.setReason(r);
 		        }	
-		        System.out.println("r: "+r);
+		        //System.out.println("r: "+r);
 		    }
 		});
 		((JLabel)cb1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
