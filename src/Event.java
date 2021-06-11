@@ -58,7 +58,7 @@ public class Event {
 		try {
 			//login.myConn = DriverManager.getConnection("jdbc:sqlite:SupDocDB.db");
 			java.sql.Statement st = login.myConn.createStatement();			
-			String q="INSERT INTO Notification VALUES('Appointment with "+d_name+"','"+notif_day+"','"+notif_time.getHour()+"','"+getTitle()+"',NULL,'"+login.email+"');";
+			String q="INSERT INTO Notification VALUES('Ραντεβού με "+d_name+"','"+notif_day+"','"+notif_time.getHour()+"','Ραντεβού με ιατρό',NULL,'"+login.email+"');";
 			st.execute(q);
 			st.close();
 		} catch (SQLException e) {

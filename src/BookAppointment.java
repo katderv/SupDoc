@@ -128,13 +128,13 @@ public class BookAppointment extends JFrame {
 		// Choose Date
 
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(120, 271, 92, 19);
+		dateChooser.setBounds(120, 271, 120, 19);
 		dateChooser.getJCalendar().setMinSelectableDate(new Date());
 		frame.getContentPane().add(dateChooser);
 		
 		// ComboBox Hours
 		JComboBox cb = new JComboBox();
-		cb.setBounds(121, 310, 91, 25);
+		cb.setBounds(121, 310, 119, 25);
 		cb.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		frame.getContentPane().add(cb);		
 		((JLabel)cb.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
@@ -218,12 +218,13 @@ public class BookAppointment extends JFrame {
 		
 		JComboBox cb1 = new JComboBox();
 		cb1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cb1.setBounds(121, 360, 91, 25);
+		cb1.setBounds(121, 360, 119, 25);
 		frame.getContentPane().add(cb1);
-		cb1.addItem("Προσωπικός λόγος");
+		
 		cb1.addItem("Check Up");
 		cb1.addItem("Επείγον");
 		cb1.addItem("Τίποτα");
+		cb1.addItem("<html>Προσωπικός<br>λόγος</html>");
 		// ComboBox Rason
 		ap.setReason((String)cb1.getSelectedItem());/// <-
 		cb1.addActionListener(new ActionListener() {//add Actionlistener to listen for change
@@ -246,7 +247,7 @@ public class BookAppointment extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
-		btnNewButton_1.setBounds(60, 411, 120, 29);
+		btnNewButton_1.setBounds(72, 417, 120, 29);
 		frame.getContentPane().add(btnNewButton_1);		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -277,6 +278,12 @@ public class BookAppointment extends JFrame {
 							
 							//insert Notification into DB
 							ap.addReminder(rs.getString("nam")+" "+rs.getString("surname"));
+							
+							//Add Notification to doctor
+							java.sql.Statement Stmt5 = login.myConn.createStatement();			
+							String q2="INSERT INTO Notification VALUES('Ραντεβού με "+login.name+"','"+ap.getDate()+"','"+ap.getHour()+"','Ραντεβού με ασθενή',NULL,'"+getEmail()+"');";
+							Stmt5.execute(q2);
+							Stmt5.close();
 							
 							rs.close();
 							Stmt3.close();
