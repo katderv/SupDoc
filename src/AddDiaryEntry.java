@@ -35,7 +35,7 @@ public class AddDiaryEntry {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Title:");
+		JLabel lblNewLabel = new JLabel("\u03A4\u03AF\u03C4\u03BB\u03BF\u03C2:");
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
@@ -45,12 +45,12 @@ public class AddDiaryEntry {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Notes:");
-		lblNewLabel_1.setBounds(10, 56, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("\u03A3\u03B7\u03BC\u03B5\u03B9\u03CE\u03C3\u03B5\u03B9\u03C2:");
+		lblNewLabel_1.setBounds(10, 56, 82, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Important");
+		JCheckBox chckbxNewCheckBox = new JCheckBox("\u03A3\u03B7\u03BC\u03B1\u03BD\u03C4\u03B9\u03BA\u03CC");
 		chckbxNewCheckBox.setBounds(6, 384, 97, 23);
 		frame.getContentPane().add(chckbxNewCheckBox);
 		
@@ -59,7 +59,7 @@ public class AddDiaryEntry {
 		textArea.setBounds(10, 74, 244, 303);
 		frame.getContentPane().add(textArea);
 		
-		JButton btnNewButton = new JButton("Add");
+		JButton btnNewButton = new JButton("\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

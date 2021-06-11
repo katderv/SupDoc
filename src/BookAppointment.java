@@ -99,7 +99,7 @@ public class BookAppointment extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(img));
 		
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>\u0397\u03BC/\u03BD\u03AF\u03B1</html>");
+		JLabel lblNewLabel_1 = new JLabel("<html>Ημερομηνία</html>");
 		lblNewLabel_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -199,7 +199,7 @@ public class BookAppointment extends JFrame {
 
 		///////////////////////
 		
-		JLabel lblNewLabel_2 = new JLabel("<html>\u038F\u03C1\u03B1</html>");
+		JLabel lblNewLabel_2 = new JLabel("<html> Ώρα </html>");
 		lblNewLabel_2.setForeground(Color.DARK_GRAY);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -209,7 +209,7 @@ public class BookAppointment extends JFrame {
 		
 		///////////////////////
 		
-		JLabel lblNewLabel_3 = new JLabel("<html>\u039B\u03CC\u03B3\u03BF\u03C2<br/>\u0395\u03C0\u03AF\u03C3\u03BA\u03B5\u03C8\u03B7\u03C2</html>");
+		JLabel lblNewLabel_3 = new JLabel("<html>Λόγος<br/>Επίσκεψης</html>");
 		lblNewLabel_3.setForeground(Color.DARK_GRAY);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setBounds(20, 350, 91, 35);
@@ -220,10 +220,10 @@ public class BookAppointment extends JFrame {
 		cb1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cb1.setBounds(121, 360, 91, 25);
 		frame.getContentPane().add(cb1);
-		cb1.addItem("Non-disclosed");
+		cb1.addItem("Προσωπικός λόγος");
 		cb1.addItem("Check Up");
-		cb1.addItem("Emergency");
-		cb1.addItem("None");
+		cb1.addItem("Επείγον");
+		cb1.addItem("Τίποτα");
 		// ComboBox Rason
 		ap.setReason((String)cb1.getSelectedItem());/// <-
 		cb1.addActionListener(new ActionListener() {//add Actionlistener to listen for change
@@ -242,7 +242,7 @@ public class BookAppointment extends JFrame {
 		
 		///////////////////////
 		//Booking Appointments
-		JButton btnNewButton_1 = new JButton("\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF \u03A1\u03B1\u03BD\u03C4\u03B5\u03B2\u03BF\u03CD");
+		JButton btnNewButton_1 = new JButton("Κλείσιμο Ραντεβού");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
