@@ -4,10 +4,10 @@ import java.awt.EventQueue;
 import java.io.File;  // Import the File class
 
 enum Gender {
-	  Γυναίκα,
-	  ’νδρας,
-	  ’λλο
-	}
+	Γυναίκα,
+	’νδρας,
+	’λλο
+}
 
 public class User {
 	protected String email;
