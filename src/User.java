@@ -4,9 +4,9 @@ import java.awt.EventQueue;
 import java.io.File;  // Import the File class
 
 enum Gender {
-	  Ξ“Ο…Ξ½Ξ±Ξ―ΞΊΞ±,
-	  Ξ†Ξ½Ξ΄ΟΞ±Ο‚,
-	  Ξ†Ξ»Ξ»ΞΏ
+	  Γυναίκα,
+	  Άνδρας,
+	  Άλλο
 	}
 
 public class User {
@@ -36,7 +36,7 @@ public class User {
 		this.dateOfBirth=LocalDate.parse(dateOfBirth);
 		this.gender=gender;
 		this.city=city;
-		this.city=region;
+		this.region=region;
 		this.profPhoto=profPhoto;
 	}
 	/*
