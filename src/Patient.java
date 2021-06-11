@@ -11,8 +11,8 @@ public class Patient extends User{
 
 	private boolean firstLogin= false;
 	
-	public Patient(String email, String password, String name, String surname, String dateOfBirth, Gender gender, String city, File profPhot, Boolean firstLogin) {
-		super(email, password, name, surname, dateOfBirth, gender, city, profPhot);
+	public Patient(String email, String password, String name, String surname, String dateOfBirth, Gender gender, String city, String region, File profPhot, Boolean firstLogin) {
+		super(email, password, name, surname, dateOfBirth, gender, city, region, profPhot);
 		this.firstLogin = firstLogin;
 	}
 	public Patient() {
